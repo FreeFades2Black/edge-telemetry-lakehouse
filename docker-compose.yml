@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  localstack:
+    image: localstack/localstack:3.0
+    container_name: edge_telemetry_localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,kinesis,lambda,iam,dynamodb
+      - AWS_DEFAULT_REGION=us-east-1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./.localstack}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  telemetry-runner:
+    build: .
+    container_name: edge_telemetry_runner
+    depends_on:
+      - localstack
+    environment:
+      - AWS_ENDPOINT_URL=http://localstack:4566
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    command: python -c "from src.processing.delta_lakehouse import EdgeTelemetryLakehousePipeline; p = EdgeTelemetryLakehousePipeline(); p.run_bronze_ingestion(100); p.run_silver_processing(); p.run_gold_aggregation()"

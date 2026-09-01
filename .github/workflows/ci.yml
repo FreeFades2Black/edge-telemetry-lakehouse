@@ -1,0 +1,52 @@
+name: "Edge Telemetry CI/CD & Quality Gate"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint_and_test_matrix:
+    name: "Python Matrix & Quality Gate"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup Python ${{ matrix.python-version }}"
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: "Install Dependencies"
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff mypy pytest pydantic
+
+      - name: "Execute Ruff Linter"
+        run: |
+          ruff check src/ tests/
+
+      - name: "Execute Unit & Integration Tests"
+        run: |
+          pytest tests/ -v
+
+  security_and_iac_scan:
+    name: "Trivy Security & Vulnerability Gate"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "Trivy File System & IaC Scan"
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          severity: "CRITICAL,HIGH"
+          exit-code: "0"

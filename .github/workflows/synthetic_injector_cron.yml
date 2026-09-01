@@ -1,0 +1,37 @@
+name: "Nightly Synthetic IoT Telemetry Ingestion"
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # Runs every night at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  run_telemetry_batch:
+    name: "Execute Medallion Ingestion Flywheel"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v4
+
+      - name: "Setup Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install Dependencies"
+        run: |
+          pip install pydantic
+
+      - name: "Run Bronze -> Silver -> Gold Pipeline"
+        run: |
+          python -c "from src.processing.delta_lakehouse import EdgeTelemetryLakehousePipeline; p = EdgeTelemetryLakehousePipeline(); b = p.run_bronze_ingestion(1000); s = p.run_silver_processing(); g = p.run_gold_aggregation(); print('Pipeline Execution Summary:', g)"
+
+      - name: "Commit & Push Live Gold Telemetry Snapshot"
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action [Synthetic Injector]"
+          git add data/gold/
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore(telemetry): automated nightly industrial IoT batch injection [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

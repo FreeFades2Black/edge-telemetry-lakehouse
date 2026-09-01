@@ -1,0 +1,171 @@
+{
+  "generated_at": "2026-09-01T14:33:11.613352+00:00",
+  "fleet_machines_summary": [
+    {
+      "device_id": "MICH-EXTRUDER-03",
+      "machine_type": "MICHELIN_CURING_PRESS",
+      "facility_location": "GREENVILLE_SC_USA",
+      "samples_evaluated": 8,
+      "avg_vibration_rms_g": 2.99,
+      "peak_vibration_rms_g": 7.89,
+      "avg_bearing_temp_c": 169.7,
+      "peak_bearing_temp_c": 182.2,
+      "machine_health_score": 75.3,
+      "anomaly_rate_pct": 25.0,
+      "maintenance_status": "CRITICAL_ACTION_REQUIRED"
+    },
+    {
+      "device_id": "DMG-CNC-5AXIS-302",
+      "machine_type": "DMG_MORI_5AXIS_CNC",
+      "facility_location": "SPARTANBURG_SC_USA",
+      "samples_evaluated": 15,
+      "avg_vibration_rms_g": 1.42,
+      "peak_vibration_rms_g": 3.08,
+      "avg_bearing_temp_c": 52.9,
+      "peak_bearing_temp_c": 104.2,
+      "machine_health_score": 84.4,
+      "anomaly_rate_pct": 20.0,
+      "maintenance_status": "CRITICAL_ACTION_REQUIRED"
+    },
+    {
+      "device_id": "BMW-ROBOT-KUKA-101",
+      "machine_type": "BMW_AMR_ROBOT_KUKA",
+      "facility_location": "GREER_SC_USA",
+      "samples_evaluated": 8,
+      "avg_vibration_rms_g": 1.45,
+      "peak_vibration_rms_g": 2.09,
+      "avg_bearing_temp_c": 52.2,
+      "peak_bearing_temp_c": 57.8,
+      "machine_health_score": 91.3,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "GEV-TURB-01-GVL",
+      "machine_type": "GE_HA_GAS_TURBINE",
+      "facility_location": "GREENVILLE_SC_USA",
+      "samples_evaluated": 6,
+      "avg_vibration_rms_g": 2.15,
+      "peak_vibration_rms_g": 2.49,
+      "avg_bearing_temp_c": 93.8,
+      "peak_bearing_temp_c": 103.8,
+      "machine_health_score": 91.5,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "GEV-TURB-03-GVL",
+      "machine_type": "GE_HA_GAS_TURBINE",
+      "facility_location": "GREENVILLE_SC_USA",
+      "samples_evaluated": 10,
+      "avg_vibration_rms_g": 2.16,
+      "peak_vibration_rms_g": 2.9,
+      "avg_bearing_temp_c": 95.2,
+      "peak_bearing_temp_c": 109.0,
+      "machine_health_score": 91.5,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "GEV-TURB-02-GVL",
+      "machine_type": "GE_HA_GAS_TURBINE",
+      "facility_location": "GREENVILLE_SC_USA",
+      "samples_evaluated": 10,
+      "avg_vibration_rms_g": 2.11,
+      "peak_vibration_rms_g": 2.39,
+      "avg_bearing_temp_c": 91.4,
+      "peak_bearing_temp_c": 96.9,
+      "machine_health_score": 91.6,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "MICH-PRESS-MARC-01",
+      "machine_type": "MICHELIN_CURING_PRESS",
+      "facility_location": "GREENVILLE_SC_USA",
+      "samples_evaluated": 7,
+      "avg_vibration_rms_g": 1.8,
+      "peak_vibration_rms_g": 2.48,
+      "avg_bearing_temp_c": 171.6,
+      "peak_bearing_temp_c": 180.8,
+      "machine_health_score": 91.6,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "BMW-AMR-FLEET-204",
+      "machine_type": "BMW_AMR_ROBOT_KUKA",
+      "facility_location": "GREER_SC_USA",
+      "samples_evaluated": 11,
+      "avg_vibration_rms_g": 1.35,
+      "peak_vibration_rms_g": 1.7,
+      "avg_bearing_temp_c": 50.5,
+      "peak_bearing_temp_c": 54.6,
+      "machine_health_score": 91.9,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "BMW-ROBOT-KUKA-102",
+      "machine_type": "BMW_AMR_ROBOT_KUKA",
+      "facility_location": "GREER_SC_USA",
+      "samples_evaluated": 11,
+      "avg_vibration_rms_g": 1.35,
+      "peak_vibration_rms_g": 1.74,
+      "avg_bearing_temp_c": 50.2,
+      "peak_bearing_temp_c": 55.2,
+      "machine_health_score": 91.9,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "MICH-PRESS-MARC-02",
+      "machine_type": "MICHELIN_CURING_PRESS",
+      "facility_location": "GREENVILLE_SC_USA",
+      "samples_evaluated": 6,
+      "avg_vibration_rms_g": 1.69,
+      "peak_vibration_rms_g": 1.97,
+      "avg_bearing_temp_c": 168.7,
+      "peak_bearing_temp_c": 172.0,
+      "machine_health_score": 92.1,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    },
+    {
+      "device_id": "DMG-CNC-5AXIS-301",
+      "machine_type": "DMG_MORI_5AXIS_CNC",
+      "facility_location": "SPARTANBURG_SC_USA",
+      "samples_evaluated": 8,
+      "avg_vibration_rms_g": 1.04,
+      "peak_vibration_rms_g": 1.29,
+      "avg_bearing_temp_c": 48.0,
+      "peak_bearing_temp_c": 54.0,
+      "machine_health_score": 92.9,
+      "anomaly_rate_pct": 0.0,
+      "maintenance_status": "HEALTHY"
+    }
+  ],
+  "plant_location_summary": [
+    {
+      "facility_location": "GREENVILLE_SC_USA",
+      "machines_monitored_count": 6,
+      "total_telemetry_events": 47,
+      "anomaly_rate_pct": 4.26,
+      "plant_operational_reliability_pct": 95.74
+    },
+    {
+      "facility_location": "SPARTANBURG_SC_USA",
+      "machines_monitored_count": 2,
+      "total_telemetry_events": 23,
+      "anomaly_rate_pct": 13.04,
+      "plant_operational_reliability_pct": 86.96
+    },
+    {
+      "facility_location": "GREER_SC_USA",
+      "machines_monitored_count": 3,
+      "total_telemetry_events": 30,
+      "anomaly_rate_pct": 0.0,
+      "plant_operational_reliability_pct": 100.0
+    }
+  ]
+}

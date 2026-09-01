@@ -150,6 +150,44 @@ Below is the verified, current Gold Layer health status generated from the autom
 
 ---
 
+## 📡 Data Provenance & Historical Benchmark Foundations
+*(For comprehensive statistical distributions and formulas, see [`docs/data_provenance_methodology.md`](docs/data_provenance_methodology.md))*
+
+In enterprise industrial data engineering, anchoring lakehouses on verified historical datasets and statistically calibrating telemetry is standard practice. The platform supports a **dual-mode ingestion harness**:
+
+```
++-------------------------------------------------------------+
+|                     Data Source Switch                      |
++-------------------------------------------------------------+
+       |                                             |
+       v                                             v
+[ Real Historical Logs ]                 [ Calibrated Generator ]
+  (NASA / CWRU / CSVs)                     (Simulated Stream)
+       \                                             /
+        \                                           /
+         v                                         v
+   +-----------------------------------------------------+
+   |            Edge Gateway / Kafka Producer            |
+   |   (Normalizes timestamps to real-time playback)     |
+   +-----------------------------------------------------+
+                             |
+                             v
+               [ Bronze Lakehouse Storage ]
+```
+
+### Supported Benchmark Datasets (Direct Replay Harness)
+1. **NASA Prognostics Center of Excellence (PCoE) Turbofan (C-MAPSS):**
+   * *Data:* Multi-cycle run-to-failure exhaust gas temperature, core speeds, and pressure ratios.
+   * *Application:* Ground truth for **GE Vernova HA Gas Turbine** Remaining Useful Life (RUL) estimation.
+2. **Case Western Reserve University (CWRU) Bearing Data Center:**
+   * *Data:* Accelerometer vibration data across normal baseline, inner raceway faults (0.007"–0.021"), ball faults, and outer raceway faults.
+   * *Application:* Ground truth for **BMW AMR Robotic Arm** joint bearing fatigue and ISO 10816 vibration severity limits.
+3. **AI4I 2020 Predictive Maintenance Dataset (UCI Machine Learning Repository):**
+   * *Data:* 10,000 real-machine operational records containing process temperatures, torque, rotational speeds, and failure modes.
+   * *Application:* Ground truth for **Michelin Curing Presses** and **5-Axis CNC Mills**.
+
+---
+
 ## 🔄 Automated CI/CD Governance Flywheel
 
 Senior technical leadership requires production automation that runs autonomously without human hand-holding:

@@ -9,6 +9,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, List, Any
 from src.ingestion.stream_producer import EdgeTelemetryProducer
+from src.ingestion.revolver_replay import HistoricalTelemetryReplay
 from src.quality.quality_gate import TelemetryQualityGate
 from src.anomaly.statistical_detector import IndustrialAnomalyDetector
 
@@ -29,6 +30,28 @@ class EdgeTelemetryLakehousePipeline:
         self.producer = EdgeTelemetryProducer()
         self.quality_gate = TelemetryQualityGate()
         self.anomaly_detector = IndustrialAnomalyDetector()
+
+    def run_historical_benchmark_replay(self, dataset_key: str = "nasa_cmapss", limit: int = 200) -> Dict[str, Any]:
+        """Replays verified historical benchmark logs (NASA C-MAPSS, CWRU Bearing, or AI4I 2020) directly into Bronze."""
+        replay_harness = HistoricalTelemetryReplay(dataset_key=dataset_key)
+        raw_dicts = replay_harness.replay_batch_to_dicts(limit=limit)
+
+        timestamp_str = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        bronze_file = BRONZE_DIR / f"bronze_benchmark_{dataset_key}_{timestamp_str}.json"
+        bronze_latest = BRONZE_DIR / "bronze_telemetry_latest.json"
+
+        with open(bronze_file, "w", encoding="utf-8") as f:
+            json.dump(raw_dicts, f, indent=2)
+        with open(bronze_latest, "w", encoding="utf-8") as f:
+            json.dump(raw_dicts, f, indent=2)
+
+        return {
+            "tier": "BRONZE",
+            "source": f"BENCHMARK_REPLAY_{dataset_key.upper()}",
+            "status": "SUCCESS",
+            "records_ingested": len(raw_dicts),
+            "output_file": str(bronze_file)
+        }
 
     def run_bronze_ingestion(self, record_count: int = 500) -> Dict[str, Any]:
         """Ingests raw streaming edge batches into Bronze Lakehouse partition."""

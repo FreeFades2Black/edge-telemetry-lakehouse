@@ -1,171 +1,40 @@
 {
-  "generated_at": "2026-09-01T15:53:14.891776+00:00",
+  "generated_at": "2026-09-01T21:16:37.346875+00:00",
   "fleet_machines_summary": [
     {
-      "device_id": "MICH-EXTRUDER-03",
-      "machine_type": "MICHELIN_CURING_PRESS",
-      "facility_location": "GREENVILLE_SC_USA",
-      "samples_evaluated": 22,
-      "avg_vibration_rms_g": 2.21,
-      "peak_vibration_rms_g": 7.89,
-      "avg_bearing_temp_c": 173.8,
-      "peak_bearing_temp_c": 229.7,
-      "machine_health_score": 82.6,
-      "anomaly_rate_pct": 18.18,
-      "maintenance_status": "CRITICAL_ACTION_REQUIRED"
-    },
-    {
-      "device_id": "GEV-TURB-01-GVL",
+      "device_id": "NASA-CMAPSS-UNIT-01",
       "machine_type": "GE_HA_GAS_TURBINE",
       "facility_location": "GREENVILLE_SC_USA",
-      "samples_evaluated": 11,
-      "avg_vibration_rms_g": 2.17,
-      "peak_vibration_rms_g": 2.52,
-      "avg_bearing_temp_c": 98.7,
-      "peak_bearing_temp_c": 147.6,
-      "machine_health_score": 87.1,
-      "anomaly_rate_pct": 9.09,
+      "samples_evaluated": 9,
+      "avg_vibration_rms_g": 3.39,
+      "peak_vibration_rms_g": 6.85,
+      "avg_bearing_temp_c": 108.6,
+      "peak_bearing_temp_c": 138.5,
+      "machine_health_score": 77.3,
+      "anomaly_rate_pct": 33.33,
       "maintenance_status": "CRITICAL_ACTION_REQUIRED"
     },
     {
-      "device_id": "DMG-CNC-5AXIS-302",
-      "machine_type": "DMG_MORI_5AXIS_CNC",
-      "facility_location": "SPARTANBURG_SC_USA",
-      "samples_evaluated": 31,
-      "avg_vibration_rms_g": 1.23,
-      "peak_vibration_rms_g": 3.08,
-      "avg_bearing_temp_c": 52.6,
-      "peak_bearing_temp_c": 108.9,
-      "machine_health_score": 87.2,
-      "anomaly_rate_pct": 12.9,
-      "maintenance_status": "CRITICAL_ACTION_REQUIRED"
-    },
-    {
-      "device_id": "MICH-PRESS-MARC-01",
-      "machine_type": "MICHELIN_CURING_PRESS",
-      "facility_location": "GREENVILLE_SC_USA",
-      "samples_evaluated": 20,
-      "avg_vibration_rms_g": 2.1,
-      "peak_vibration_rms_g": 5.04,
-      "avg_bearing_temp_c": 173.0,
-      "peak_bearing_temp_c": 185.2,
-      "machine_health_score": 88.1,
-      "anomaly_rate_pct": 10.0,
-      "maintenance_status": "MAINTENANCE_WARNING"
-    },
-    {
-      "device_id": "BMW-ROBOT-KUKA-101",
-      "machine_type": "BMW_AMR_ROBOT_KUKA",
-      "facility_location": "GREER_SC_USA",
-      "samples_evaluated": 14,
-      "avg_vibration_rms_g": 1.4,
-      "peak_vibration_rms_g": 2.09,
-      "avg_bearing_temp_c": 56.6,
-      "peak_bearing_temp_c": 113.7,
-      "machine_health_score": 88.2,
-      "anomaly_rate_pct": 7.14,
-      "maintenance_status": "CRITICAL_ACTION_REQUIRED"
-    },
-    {
-      "device_id": "BMW-ROBOT-KUKA-102",
-      "machine_type": "BMW_AMR_ROBOT_KUKA",
-      "facility_location": "GREER_SC_USA",
-      "samples_evaluated": 16,
-      "avg_vibration_rms_g": 1.6,
-      "peak_vibration_rms_g": 3.92,
-      "avg_bearing_temp_c": 51.6,
-      "peak_bearing_temp_c": 66.9,
-      "machine_health_score": 89.1,
-      "anomaly_rate_pct": 6.25,
-      "maintenance_status": "MAINTENANCE_WARNING"
-    },
-    {
-      "device_id": "BMW-AMR-FLEET-204",
-      "machine_type": "BMW_AMR_ROBOT_KUKA",
-      "facility_location": "GREER_SC_USA",
-      "samples_evaluated": 22,
-      "avg_vibration_rms_g": 1.49,
-      "peak_vibration_rms_g": 3.92,
-      "avg_bearing_temp_c": 51.5,
-      "peak_bearing_temp_c": 65.9,
-      "machine_health_score": 90.1,
-      "anomaly_rate_pct": 4.55,
-      "maintenance_status": "MAINTENANCE_WARNING"
-    },
-    {
-      "device_id": "GEV-TURB-03-GVL",
+      "device_id": "NASA-CMAPSS-UNIT-02",
       "machine_type": "GE_HA_GAS_TURBINE",
       "facility_location": "GREENVILLE_SC_USA",
-      "samples_evaluated": 15,
-      "avg_vibration_rms_g": 2.18,
-      "peak_vibration_rms_g": 2.93,
-      "avg_bearing_temp_c": 95.8,
-      "peak_bearing_temp_c": 109.0,
-      "machine_health_score": 91.4,
-      "anomaly_rate_pct": 0.0,
-      "maintenance_status": "HEALTHY"
-    },
-    {
-      "device_id": "GEV-TURB-02-GVL",
-      "machine_type": "GE_HA_GAS_TURBINE",
-      "facility_location": "GREENVILLE_SC_USA",
-      "samples_evaluated": 14,
-      "avg_vibration_rms_g": 2.08,
-      "peak_vibration_rms_g": 2.59,
-      "avg_bearing_temp_c": 93.8,
-      "peak_bearing_temp_c": 107.5,
-      "machine_health_score": 91.8,
-      "anomaly_rate_pct": 0.0,
-      "maintenance_status": "HEALTHY"
-    },
-    {
-      "device_id": "MICH-PRESS-MARC-02",
-      "machine_type": "MICHELIN_CURING_PRESS",
-      "facility_location": "GREENVILLE_SC_USA",
-      "samples_evaluated": 15,
-      "avg_vibration_rms_g": 1.66,
-      "peak_vibration_rms_g": 2.01,
-      "avg_bearing_temp_c": 171.0,
-      "peak_bearing_temp_c": 185.5,
-      "machine_health_score": 92.2,
-      "anomaly_rate_pct": 0.0,
-      "maintenance_status": "HEALTHY"
-    },
-    {
-      "device_id": "DMG-CNC-5AXIS-301",
-      "machine_type": "DMG_MORI_5AXIS_CNC",
-      "facility_location": "SPARTANBURG_SC_USA",
-      "samples_evaluated": 20,
-      "avg_vibration_rms_g": 1.14,
-      "peak_vibration_rms_g": 1.68,
-      "avg_bearing_temp_c": 48.0,
-      "peak_bearing_temp_c": 54.0,
-      "machine_health_score": 92.3,
-      "anomaly_rate_pct": 0.0,
-      "maintenance_status": "HEALTHY"
+      "samples_evaluated": 5,
+      "avg_vibration_rms_g": 3.3,
+      "peak_vibration_rms_g": 6.1,
+      "avg_bearing_temp_c": 106.9,
+      "peak_bearing_temp_c": 132.0,
+      "machine_health_score": 79.0,
+      "anomaly_rate_pct": 40.0,
+      "maintenance_status": "MAINTENANCE_WARNING"
     }
   ],
   "plant_location_summary": [
     {
       "facility_location": "GREENVILLE_SC_USA",
-      "machines_monitored_count": 6,
-      "total_telemetry_events": 97,
-      "anomaly_rate_pct": 7.22,
-      "plant_operational_reliability_pct": 92.78
-    },
-    {
-      "facility_location": "SPARTANBURG_SC_USA",
       "machines_monitored_count": 2,
-      "total_telemetry_events": 51,
-      "anomaly_rate_pct": 7.84,
-      "plant_operational_reliability_pct": 92.16
-    },
-    {
-      "facility_location": "GREER_SC_USA",
-      "machines_monitored_count": 3,
-      "total_telemetry_events": 52,
-      "anomaly_rate_pct": 5.77,
-      "plant_operational_reliability_pct": 94.23
+      "total_telemetry_events": 14,
+      "anomaly_rate_pct": 35.71,
+      "plant_operational_reliability_pct": 64.29
     }
   ]
 }

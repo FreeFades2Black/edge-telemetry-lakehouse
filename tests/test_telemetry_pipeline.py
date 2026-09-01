@@ -130,3 +130,47 @@ def test_full_medallion_pipeline_execution():
     assert g_res["status"] == "SUCCESS"
     assert g_res["machines_evaluated"] > 0
     assert g_res["plants_evaluated"] > 0
+
+
+def test_historical_benchmark_replay_sources():
+    """Verify historical benchmark replay parses NASA, CWRU, and AI4I datasets."""
+    from src.ingestion.revolver_replay import HistoricalTelemetryReplay
+
+    # 1. NASA C-MAPSS
+    nasa = HistoricalTelemetryReplay(dataset_key="nasa_cmapss")
+    nasa_records = nasa.replay_batch_to_dicts(limit=10)
+    assert len(nasa_records) == 10
+    assert "NASA-CMAPSS" in nasa_records[0]["device_id"]
+    assert nasa_records[0]["dataset_source"] == "BENCHMARK_NASA_CMAPSS"
+
+    # 2. CWRU Bearing
+    cwru = HistoricalTelemetryReplay(dataset_key="cwru_bearing")
+    cwru_records = cwru.replay_batch_to_dicts(limit=5)
+    assert len(cwru_records) == 5
+    assert "CWRU-BEARING" in cwru_records[0]["device_id"]
+
+    # 3. AI4I 2020
+    ai4i = HistoricalTelemetryReplay(dataset_key="ai4i2020")
+    ai4i_records = ai4i.replay_batch_to_dicts(limit=5)
+    assert len(ai4i_records) == 5
+    assert "AI4I" in ai4i_records[0]["device_id"]
+
+
+def test_historical_medallion_pipeline_execution():
+    """Verify full Lakehouse processing of historical benchmark data into Gold."""
+    pipeline = EdgeTelemetryLakehousePipeline()
+    
+    # 1. Ingest historical NASA C-MAPSS logs into Bronze
+    b_res = pipeline.run_historical_benchmark_replay(dataset_key="nasa_cmapss", limit=14)
+    assert b_res["status"] == "SUCCESS"
+    assert b_res["records_ingested"] == 14
+
+    # 2. Process Silver with ISO Anomaly Engine
+    s_res = pipeline.run_silver_processing()
+    assert s_res["status"] == "SUCCESS"
+    assert s_res["valid_silver_records"] == 14
+
+    # 3. Compute Gold Machine Health
+    g_res = pipeline.run_gold_aggregation()
+    assert g_res["status"] == "SUCCESS"
+    assert g_res["machines_evaluated"] >= 2

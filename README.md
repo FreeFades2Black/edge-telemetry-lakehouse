@@ -57,8 +57,8 @@ flowchart TD
     B1 --> B2
     B2 --> C1
     C1 --> C2
-    C2 -- "< 70% Quality" --> C3
-    C2 -- "≥ 70% Valid" --> C4
+    C2 -->|Under 70 Pct Quality| C3
+    C2 -->|Valid Over 70 Pct| C4
     C4 --> C5
     C5 --> C6
     D1 -.-> C2

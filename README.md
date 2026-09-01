@@ -7,7 +7,9 @@
 [![Target Industry](https://img.shields.io/badge/Enterprise%20Focus-BMW%20%7C%20Michelin%20%7C%20GE%20Vernova-amber?style=for-the-badge&logo=industrial-software&logoColor=white)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
 [![LocalStack Zero-Cost Sandbox](https://img.shields.io/badge/Sandbox-LocalStack%202--Min%20Eval-blue?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
 
-> **Live Interactive Executive View:** [Open Fleet Telemetry Scorecard ↗](https://FreeFades2Black.github.io/edge-telemetry-lakehouse/)
+> [!TIP]
+> ### 🌐 **[👉 CLICK HERE TO LAUNCH LIVE FLEET TELEMETRY DASHBOARD ↗](https://freefades2black.github.io/edge-telemetry-lakehouse/)**
+> **Zero installation or cloud setup required.** Click the link above to explore the live interactive Medallion Lakehouse visualizer, real-time vibration/thermal time-series waveforms, ISO 10816 anomaly triggers, and plant reliability scorecards directly in your browser.
 
 ---
 
@@ -138,17 +140,21 @@ flowchart TD
 
 ## 📊 Live Gold Fleet Machine Health Snapshot
 
-Below is the verified, current Gold Layer health status generated from the automated ingestion flywheel across monitored facilities:
+Below is the verified, current Gold Layer health status generated from the automated ingestion flywheel across monitored facilities.
+
+👉 **[Launch Interactive Web Scorecard to Inspect Waveforms ↗](https://freefades2black.github.io/edge-telemetry-lakehouse/)**
 
 | Equipment Identifier | Industrial Machine Class | Facility Location | Samples Monitored | Avg Vibration | Peak Vibration | Avg Temp | Machine Health Score | Maintenance Action Directive |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **`BMW-ROBOT-KUKA-101`** | AMR Robotic Arm | **Greer, SC** | 68 | 1.42 G | 2.10 G | 52.1 °C | **90.8 / 100** | 🟢 `HEALTHY` (Standard Operation) |
-| **`BMW-AMR-FLEET-204`** | AMR Material Handler | **Greer, SC** | 72 | 1.38 G | 1.95 G | 51.8 °C | **91.2 / 100** | 🟢 `HEALTHY` (Standard Operation) |
-| **`MICH-PRESS-MARC-01`** | Tire Curing Press | **Greenville, SC** | 64 | 1.84 G | 2.90 G | 171.2 °C | **87.5 / 100** | 🟢 `HEALTHY` (Standard Operation) |
-| **`MICH-EXTRUDER-03`** | Elastomer Extruder | **Greenville, SC** | 58 | 2.65 G | 3.40 G | 182.4 °C | **74.1 / 100** | 🟡 `MAINTENANCE_WARNING` (Inspect Bearings) |
-| **`GEV-TURB-01-GVL`** | HA Gas Turbine | **Greenville, SC** | 80 | 2.12 G | 3.10 G | 96.2 °C | **89.4 / 100** | 🟢 `HEALTHY` (Standard Operation) |
-| **`GEV-TURB-03-GVL`** | HA Gas Turbine | **Greenville, SC** | 76 | 4.15 G | 6.80 G | 128.5 °C | **48.2 / 100** | 🔴 `CRITICAL_ACTION_REQUIRED` (Precursor to Seizure) |
-| **`DMG-CNC-5AXIS-301`** | 5-Axis CNC Mill | **Spartanburg, SC** | 82 | 1.15 G | 1.85 G | 48.3 °C | **92.1 / 100** | 🟢 `HEALTHY` (Standard Operation) |
+| [**`BMW-ROBOT-KUKA-101`**](https://freefades2black.github.io/edge-telemetry-lakehouse/) | AMR Robotic Arm | **Greer, SC** | 68 | 1.42 G | 2.10 G | 52.1 °C | **90.8 / 100** | 🟢 `HEALTHY` (Standard Operation) |
+| [**`BMW-AMR-FLEET-204`**](https://freefades2black.github.io/edge-telemetry-lakehouse/) | AMR Material Handler | **Greer, SC** | 72 | 1.38 G | 1.95 G | 51.8 °C | **91.2 / 100** | 🟢 `HEALTHY` (Standard Operation) |
+| [**`MICH-PRESS-MARC-01`**](https://freefades2black.github.io/edge-telemetry-lakehouse/) | Tire Curing Press | **Greenville, SC** | 64 | 1.84 G | 2.90 G | 171.2 °C | **87.5 / 100** | 🟢 `HEALTHY` (Standard Operation) |
+| [**`MICH-EXTRUDER-03`**](https://freefades2black.github.io/edge-telemetry-lakehouse/) | Elastomer Extruder | **Greenville, SC** | 58 | 2.65 G | 3.40 G | 182.4 °C | **74.1 / 100** | 🟡 `MAINTENANCE_WARNING` (Inspect Bearings) |
+| [**`GEV-TURB-01-GVL`**](https://freefades2black.github.io/edge-telemetry-lakehouse/) | HA Gas Turbine | **Greenville, SC** | 80 | 2.12 G | 3.10 G | 96.2 °C | **89.4 / 100** | 🟢 `HEALTHY` (Standard Operation) |
+| [**`GEV-TURB-03-GVL`**](https://freefades2black.github.io/edge-telemetry-lakehouse/) | HA Gas Turbine | **Greenville, SC** | 76 | 4.15 G | 6.80 G | 128.5 °C | **48.2 / 100** | 🔴 `CRITICAL_ACTION_REQUIRED` (Precursor to Seizure) |
+| [**`DMG-CNC-5AXIS-301`**](https://freefades2black.github.io/edge-telemetry-lakehouse/) | 5-Axis CNC Mill | **Spartanburg, SC** | 82 | 1.15 G | 1.85 G | 48.3 °C | **92.1 / 100** | 🟢 `HEALTHY` (Standard Operation) |
+
+> 💡 *Click any equipment ID above or visit the [Live Fleet Dashboard](https://freefades2black.github.io/edge-telemetry-lakehouse/) to view real-time time-series telemetry charts.*
 
 ---
 
@@ -203,7 +209,12 @@ Senior technical leadership requires production automation that runs autonomousl
 
 ## 🚀 2-Minute Executive & Technical Sandbox Quickstart
 
-Hiring managers, platform engineers, and executives can run the entire pipeline locally in under two minutes with **zero cloud credentials** using our LocalStack sandbox:
+### 🌐 Option A: Instant Browser Experience (Zero Installation)
+👉 **[Click Here to Launch the Live Interactive Dashboard ↗](https://freefades2black.github.io/edge-telemetry-lakehouse/)**  
+*(Inspect live telemetry waveforms, ISO 10816 anomaly triggers, and plant reliability scorecards without cloning code or configuring credentials)*
+
+### 💻 Option B: Local 2-Minute Sandbox Execution
+Hiring managers, platform engineers, and developers can run the entire pipeline locally in under two minutes with **zero cloud credentials** using our LocalStack sandbox:
 
 ```bash
 # 1. Clone the repository

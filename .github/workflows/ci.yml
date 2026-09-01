@@ -33,8 +33,10 @@ jobs:
           ruff check src/ tests/ --exit-zero
 
       - name: "Execute Unit & Integration Tests"
+        env:
+          PYTHONPATH: "."
         run: |
-          pytest tests/ -v
+          python -m pytest tests/ -v
 
   security_and_iac_scan:
     name: "Trivy Security & Vulnerability Gate"

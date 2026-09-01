@@ -1,0 +1,53 @@
+# FILE: .github/workflows/trail-dashboard-deploy.yml
+# LORE: The Gunslinger leaves a clear trail marker at every camp.
+#       No traveler questions the path when the maps are drawn in plain sight.
+
+name: "publish-telemetry-dashboard"
+
+on:
+  push:
+    branches: [ "main" ]
+  schedule:
+    # Run daily at 06:00 UTC to simulate fresh daily batch scoring
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  run_pipeline_and_publish:
+    name: "Execute Replay and Publish Dashboard"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Draw Iron (Checkout Code)"
+        uses: actions/checkout@v4
+
+      - name: "Prime the Cylinder (Setup Python)"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: "Load Cartridges (Install Dependencies)"
+        run: |
+          pip install pandas pydantic pytest
+
+      - name: "Execute Gold Layer Aggregation"
+        run: |
+          python src/analytics/generate_gold_metrics.py
+
+      - name: "Build Static Executive Dashboard"
+        run: |
+          python src/visualization/build_dashboard.py --output-dir dist/
+
+      - name: "Upload GitHub Pages Artifact"
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "dist/"
+
+      - name: "Deploy to GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v4

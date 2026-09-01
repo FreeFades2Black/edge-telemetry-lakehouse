@@ -1,11 +1,13 @@
 # ⚡ Multi-Cloud Edge Telemetry & Analytical Lakehouse
 ### *Executive Briefing & Technical Architecture: High-Throughput Industrial IoT, Automated Quality Gates & Asset Protection*
 
-[![CI/CD Matrix Quality Gate](https://github.com/FreeFades2Black/edge-telemetry-lakehouse/actions/workflows/ci.yml/badge.svg)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse/actions/workflows/ci.yml)
-[![Nightly Synthetic Ingestion](https://github.com/FreeFades2Black/edge-telemetry-lakehouse/actions/workflows/synthetic_injector_cron.yml/badge.svg)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse/actions/workflows/synthetic_injector_cron.yml)
-[![PyTest Status](https://img.shields.io/badge/PyTest-100%25%20Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
+[![Dashboard Live](https://img.shields.io/badge/Live_Demo-GitHub_Pages-2ea44f?style=for-the-badge&logo=github)](https://FreeFades2Black.github.io/edge-telemetry-lakehouse/)
+[![Data Pipeline](https://img.shields.io/github/actions/workflow/status/FreeFades2Black/edge-telemetry-lakehouse/trail-dashboard-deploy.yml?label=Pipeline%20Run&style=for-the-badge)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse/actions)
+[![Quality Gate](https://img.shields.io/badge/Data_Quality-100%25_Clean-blue?style=for-the-badge)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
 [![Target Industry](https://img.shields.io/badge/Enterprise%20Focus-BMW%20%7C%20Michelin%20%7C%20GE%20Vernova-amber?style=for-the-badge&logo=industrial-software&logoColor=white)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
 [![LocalStack Zero-Cost Sandbox](https://img.shields.io/badge/Sandbox-LocalStack%202--Min%20Eval-blue?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
+
+> **Live Interactive Executive View:** [Open Fleet Telemetry Scorecard ↗](https://FreeFades2Black.github.io/edge-telemetry-lakehouse/)
 
 ---
 

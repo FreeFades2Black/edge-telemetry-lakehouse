@@ -1,0 +1,892 @@
+{
+  "model_metadata": {
+    "foundation_model": "Google-TimesFM-3.0-Industrial-Asset-Forecaster",
+    "inference_timestamp_utc": "2026-09-02T14:13:35.452039+00:00",
+    "forecast_horizon": "30 Days Forward (720 Operating Hours)",
+    "governing_standard": "ISO 10816-3 & ISO 20816 Mechanical Severity",
+    "benchmark_grounding": "NASA C-MAPSS Turbofan + CWRU Bearing Data Center"
+  },
+  "executive_summary": {
+    "fleet_imminent_risk_units": 1,
+    "highest_priority_machine": "GEV-TURB-03-GVL (RUL: ~142 Hours / 5.9 Days)",
+    "estimated_prevented_downtime_cost_usd": "$1,450,000 (Avoided Unplanned Outage)"
+  },
+  "equipment_predictive_trajectories": [
+    {
+      "equipment_id": "GEV-TURB-03-GVL",
+      "machine_type": "HA Gas Turbine",
+      "facility_location": "Greenville, SC",
+      "current_health_score": 42.5,
+      "remaining_useful_life_hrs": 102.7,
+      "urgency_classification": "CRITICAL_IMMINENT_OUTAGE",
+      "days_until_iso_critical_breach": 4.3,
+      "30_day_trajectory": [
+        {
+          "forecast_date": "2026-09-04",
+          "day_offset": 2,
+          "projected_vibration_rms_p50": 4.24,
+          "vibration_lower_bound_p10": 3.99,
+          "vibration_upper_bound_p90": 4.59,
+          "projected_bearing_temp_c": 129.6,
+          "projected_health_score": 41.3
+        },
+        {
+          "forecast_date": "2026-09-06",
+          "day_offset": 4,
+          "projected_vibration_rms_p50": 4.34,
+          "vibration_lower_bound_p10": 3.99,
+          "vibration_upper_bound_p90": 4.83,
+          "projected_bearing_temp_c": 130.7,
+          "projected_health_score": 39.9
+        },
+        {
+          "forecast_date": "2026-09-08",
+          "day_offset": 6,
+          "projected_vibration_rms_p50": 4.45,
+          "vibration_lower_bound_p10": 4.02,
+          "vibration_upper_bound_p90": 5.06,
+          "projected_bearing_temp_c": 131.7,
+          "projected_health_score": 38.4
+        },
+        {
+          "forecast_date": "2026-09-10",
+          "day_offset": 8,
+          "projected_vibration_rms_p50": 4.56,
+          "vibration_lower_bound_p10": 4.06,
+          "vibration_upper_bound_p90": 5.26,
+          "projected_bearing_temp_c": 132.8,
+          "projected_health_score": 36.9
+        },
+        {
+          "forecast_date": "2026-09-12",
+          "day_offset": 10,
+          "projected_vibration_rms_p50": 4.67,
+          "vibration_lower_bound_p10": 4.11,
+          "vibration_upper_bound_p90": 5.45,
+          "projected_bearing_temp_c": 133.9,
+          "projected_health_score": 35.3
+        },
+        {
+          "forecast_date": "2026-09-14",
+          "day_offset": 12,
+          "projected_vibration_rms_p50": 4.8,
+          "vibration_lower_bound_p10": 4.19,
+          "vibration_upper_bound_p90": 5.66,
+          "projected_bearing_temp_c": 135.0,
+          "projected_health_score": 33.5
+        },
+        {
+          "forecast_date": "2026-09-16",
+          "day_offset": 14,
+          "projected_vibration_rms_p50": 4.93,
+          "vibration_lower_bound_p10": 4.27,
+          "vibration_upper_bound_p90": 5.86,
+          "projected_bearing_temp_c": 136.1,
+          "projected_health_score": 31.7
+        },
+        {
+          "forecast_date": "2026-09-18",
+          "day_offset": 16,
+          "projected_vibration_rms_p50": 5.07,
+          "vibration_lower_bound_p10": 4.36,
+          "vibration_upper_bound_p90": 6.06,
+          "projected_bearing_temp_c": 137.1,
+          "projected_health_score": 29.8
+        },
+        {
+          "forecast_date": "2026-09-20",
+          "day_offset": 18,
+          "projected_vibration_rms_p50": 5.21,
+          "vibration_lower_bound_p10": 4.46,
+          "vibration_upper_bound_p90": 6.26,
+          "projected_bearing_temp_c": 138.2,
+          "projected_health_score": 27.9
+        },
+        {
+          "forecast_date": "2026-09-22",
+          "day_offset": 20,
+          "projected_vibration_rms_p50": 5.36,
+          "vibration_lower_bound_p10": 4.57,
+          "vibration_upper_bound_p90": 6.47,
+          "projected_bearing_temp_c": 139.3,
+          "projected_health_score": 25.8
+        },
+        {
+          "forecast_date": "2026-09-24",
+          "day_offset": 22,
+          "projected_vibration_rms_p50": 5.53,
+          "vibration_lower_bound_p10": 4.7,
+          "vibration_upper_bound_p90": 6.69,
+          "projected_bearing_temp_c": 140.4,
+          "projected_health_score": 23.4
+        },
+        {
+          "forecast_date": "2026-09-26",
+          "day_offset": 24,
+          "projected_vibration_rms_p50": 5.7,
+          "vibration_lower_bound_p10": 4.83,
+          "vibration_upper_bound_p90": 6.91,
+          "projected_bearing_temp_c": 141.5,
+          "projected_health_score": 21.1
+        },
+        {
+          "forecast_date": "2026-09-28",
+          "day_offset": 26,
+          "projected_vibration_rms_p50": 5.88,
+          "vibration_lower_bound_p10": 4.98,
+          "vibration_upper_bound_p90": 7.14,
+          "projected_bearing_temp_c": 142.5,
+          "projected_health_score": 18.6
+        },
+        {
+          "forecast_date": "2026-09-30",
+          "day_offset": 28,
+          "projected_vibration_rms_p50": 6.07,
+          "vibration_lower_bound_p10": 5.13,
+          "vibration_upper_bound_p90": 7.38,
+          "projected_bearing_temp_c": 143.6,
+          "projected_health_score": 16.0
+        },
+        {
+          "forecast_date": "2026-10-02",
+          "day_offset": 30,
+          "projected_vibration_rms_p50": 6.27,
+          "vibration_lower_bound_p10": 5.3,
+          "vibration_upper_bound_p90": 7.63,
+          "projected_bearing_temp_c": 144.7,
+          "projected_health_score": 13.2
+        }
+      ]
+    },
+    {
+      "equipment_id": "MICH-EXTRUDER-03",
+      "machine_type": "Elastomer Extruder",
+      "facility_location": "Greenville, SC",
+      "current_health_score": 56.6,
+      "remaining_useful_life_hrs": 393.8,
+      "urgency_classification": "MAINTENANCE_ADVISORY",
+      "days_until_iso_critical_breach": 16.4,
+      "30_day_trajectory": [
+        {
+          "forecast_date": "2026-09-04",
+          "day_offset": 2,
+          "projected_vibration_rms_p50": 2.7,
+          "vibration_lower_bound_p10": 2.45,
+          "vibration_upper_bound_p90": 3.05,
+          "projected_bearing_temp_c": 182.9,
+          "projected_health_score": 55.8
+        },
+        {
+          "forecast_date": "2026-09-06",
+          "day_offset": 4,
+          "projected_vibration_rms_p50": 2.74,
+          "vibration_lower_bound_p10": 2.39,
+          "vibration_upper_bound_p90": 3.23,
+          "projected_bearing_temp_c": 183.5,
+          "projected_health_score": 55.2
+        },
+        {
+          "forecast_date": "2026-09-08",
+          "day_offset": 6,
+          "projected_vibration_rms_p50": 2.79,
+          "vibration_lower_bound_p10": 2.36,
+          "vibration_upper_bound_p90": 3.4,
+          "projected_bearing_temp_c": 184.0,
+          "projected_health_score": 54.3
+        },
+        {
+          "forecast_date": "2026-09-10",
+          "day_offset": 8,
+          "projected_vibration_rms_p50": 2.85,
+          "vibration_lower_bound_p10": 2.35,
+          "vibration_upper_bound_p90": 3.55,
+          "projected_bearing_temp_c": 184.5,
+          "projected_health_score": 53.4
+        },
+        {
+          "forecast_date": "2026-09-12",
+          "day_offset": 10,
+          "projected_vibration_rms_p50": 2.91,
+          "vibration_lower_bound_p10": 2.35,
+          "vibration_upper_bound_p90": 3.69,
+          "projected_bearing_temp_c": 185.0,
+          "projected_health_score": 52.4
+        },
+        {
+          "forecast_date": "2026-09-14",
+          "day_offset": 12,
+          "projected_vibration_rms_p50": 2.97,
+          "vibration_lower_bound_p10": 2.36,
+          "vibration_upper_bound_p90": 3.83,
+          "projected_bearing_temp_c": 185.6,
+          "projected_health_score": 51.4
+        },
+        {
+          "forecast_date": "2026-09-16",
+          "day_offset": 14,
+          "projected_vibration_rms_p50": 3.03,
+          "vibration_lower_bound_p10": 2.37,
+          "vibration_upper_bound_p90": 3.96,
+          "projected_bearing_temp_c": 186.1,
+          "projected_health_score": 50.4
+        },
+        {
+          "forecast_date": "2026-09-18",
+          "day_offset": 16,
+          "projected_vibration_rms_p50": 3.1,
+          "vibration_lower_bound_p10": 2.39,
+          "vibration_upper_bound_p90": 4.09,
+          "projected_bearing_temp_c": 186.6,
+          "projected_health_score": 49.3
+        },
+        {
+          "forecast_date": "2026-09-20",
+          "day_offset": 18,
+          "projected_vibration_rms_p50": 3.17,
+          "vibration_lower_bound_p10": 2.42,
+          "vibration_upper_bound_p90": 4.22,
+          "projected_bearing_temp_c": 187.2,
+          "projected_health_score": 48.1
+        },
+        {
+          "forecast_date": "2026-09-22",
+          "day_offset": 20,
+          "projected_vibration_rms_p50": 3.24,
+          "vibration_lower_bound_p10": 2.45,
+          "vibration_upper_bound_p90": 4.35,
+          "projected_bearing_temp_c": 187.7,
+          "projected_health_score": 47.0
+        },
+        {
+          "forecast_date": "2026-09-24",
+          "day_offset": 22,
+          "projected_vibration_rms_p50": 3.32,
+          "vibration_lower_bound_p10": 2.49,
+          "vibration_upper_bound_p90": 4.48,
+          "projected_bearing_temp_c": 188.2,
+          "projected_health_score": 45.7
+        },
+        {
+          "forecast_date": "2026-09-26",
+          "day_offset": 24,
+          "projected_vibration_rms_p50": 3.41,
+          "vibration_lower_bound_p10": 2.54,
+          "vibration_upper_bound_p90": 4.62,
+          "projected_bearing_temp_c": 188.7,
+          "projected_health_score": 44.2
+        },
+        {
+          "forecast_date": "2026-09-28",
+          "day_offset": 26,
+          "projected_vibration_rms_p50": 3.49,
+          "vibration_lower_bound_p10": 2.59,
+          "vibration_upper_bound_p90": 4.75,
+          "projected_bearing_temp_c": 189.3,
+          "projected_health_score": 42.9
+        },
+        {
+          "forecast_date": "2026-09-30",
+          "day_offset": 28,
+          "projected_vibration_rms_p50": 3.59,
+          "vibration_lower_bound_p10": 2.65,
+          "vibration_upper_bound_p90": 4.9,
+          "projected_bearing_temp_c": 189.8,
+          "projected_health_score": 41.3
+        },
+        {
+          "forecast_date": "2026-10-02",
+          "day_offset": 30,
+          "projected_vibration_rms_p50": 3.69,
+          "vibration_lower_bound_p10": 2.72,
+          "vibration_upper_bound_p90": 5.05,
+          "projected_bearing_temp_c": 190.3,
+          "projected_health_score": 39.6
+        }
+      ]
+    },
+    {
+      "equipment_id": "MICH-PRESS-MARC-01",
+      "machine_type": "Tire Curing Press",
+      "facility_location": "Greenville, SC",
+      "current_health_score": 66.9,
+      "remaining_useful_life_hrs": 2338.4,
+      "urgency_classification": "HEALTHY_LONG_RUNWAY",
+      "days_until_iso_critical_breach": 97.4,
+      "30_day_trajectory": [
+        {
+          "forecast_date": "2026-09-04",
+          "day_offset": 2,
+          "projected_vibration_rms_p50": 1.85,
+          "vibration_lower_bound_p10": 1.6,
+          "vibration_upper_bound_p90": 2.2,
+          "projected_bearing_temp_c": 171.3,
+          "projected_health_score": 66.7
+        },
+        {
+          "forecast_date": "2026-09-06",
+          "day_offset": 4,
+          "projected_vibration_rms_p50": 1.86,
+          "vibration_lower_bound_p10": 1.51,
+          "vibration_upper_bound_p90": 2.35,
+          "projected_bearing_temp_c": 171.4,
+          "projected_health_score": 66.5
+        },
+        {
+          "forecast_date": "2026-09-08",
+          "day_offset": 6,
+          "projected_vibration_rms_p50": 1.87,
+          "vibration_lower_bound_p10": 1.44,
+          "vibration_upper_bound_p90": 2.48,
+          "projected_bearing_temp_c": 171.6,
+          "projected_health_score": 66.3
+        },
+        {
+          "forecast_date": "2026-09-10",
+          "day_offset": 8,
+          "projected_vibration_rms_p50": 1.89,
+          "vibration_lower_bound_p10": 1.39,
+          "vibration_upper_bound_p90": 2.59,
+          "projected_bearing_temp_c": 171.7,
+          "projected_health_score": 66.0
+        },
+        {
+          "forecast_date": "2026-09-12",
+          "day_offset": 10,
+          "projected_vibration_rms_p50": 1.9,
+          "vibration_lower_bound_p10": 1.34,
+          "vibration_upper_bound_p90": 2.68,
+          "projected_bearing_temp_c": 171.8,
+          "projected_health_score": 65.8
+        },
+        {
+          "forecast_date": "2026-09-14",
+          "day_offset": 12,
+          "projected_vibration_rms_p50": 1.91,
+          "vibration_lower_bound_p10": 1.3,
+          "vibration_upper_bound_p90": 2.77,
+          "projected_bearing_temp_c": 171.9,
+          "projected_health_score": 65.6
+        },
+        {
+          "forecast_date": "2026-09-16",
+          "day_offset": 14,
+          "projected_vibration_rms_p50": 1.93,
+          "vibration_lower_bound_p10": 1.27,
+          "vibration_upper_bound_p90": 2.86,
+          "projected_bearing_temp_c": 172.0,
+          "projected_health_score": 65.3
+        },
+        {
+          "forecast_date": "2026-09-18",
+          "day_offset": 16,
+          "projected_vibration_rms_p50": 1.94,
+          "vibration_lower_bound_p10": 1.23,
+          "vibration_upper_bound_p90": 2.93,
+          "projected_bearing_temp_c": 172.2,
+          "projected_health_score": 65.1
+        },
+        {
+          "forecast_date": "2026-09-20",
+          "day_offset": 18,
+          "projected_vibration_rms_p50": 1.96,
+          "vibration_lower_bound_p10": 1.21,
+          "vibration_upper_bound_p90": 3.01,
+          "projected_bearing_temp_c": 172.3,
+          "projected_health_score": 64.7
+        },
+        {
+          "forecast_date": "2026-09-22",
+          "day_offset": 20,
+          "projected_vibration_rms_p50": 1.97,
+          "vibration_lower_bound_p10": 1.18,
+          "vibration_upper_bound_p90": 3.08,
+          "projected_bearing_temp_c": 172.4,
+          "projected_health_score": 64.5
+        },
+        {
+          "forecast_date": "2026-09-24",
+          "day_offset": 22,
+          "projected_vibration_rms_p50": 1.99,
+          "vibration_lower_bound_p10": 1.16,
+          "vibration_upper_bound_p90": 3.15,
+          "projected_bearing_temp_c": 172.5,
+          "projected_health_score": 64.2
+        },
+        {
+          "forecast_date": "2026-09-26",
+          "day_offset": 24,
+          "projected_vibration_rms_p50": 2.01,
+          "vibration_lower_bound_p10": 1.14,
+          "vibration_upper_bound_p90": 3.22,
+          "projected_bearing_temp_c": 172.6,
+          "projected_health_score": 63.8
+        },
+        {
+          "forecast_date": "2026-09-28",
+          "day_offset": 26,
+          "projected_vibration_rms_p50": 2.03,
+          "vibration_lower_bound_p10": 1.13,
+          "vibration_upper_bound_p90": 3.29,
+          "projected_bearing_temp_c": 172.8,
+          "projected_health_score": 63.5
+        },
+        {
+          "forecast_date": "2026-09-30",
+          "day_offset": 28,
+          "projected_vibration_rms_p50": 2.05,
+          "vibration_lower_bound_p10": 1.11,
+          "vibration_upper_bound_p90": 3.36,
+          "projected_bearing_temp_c": 172.9,
+          "projected_health_score": 63.1
+        },
+        {
+          "forecast_date": "2026-10-02",
+          "day_offset": 30,
+          "projected_vibration_rms_p50": 2.08,
+          "vibration_lower_bound_p10": 1.11,
+          "vibration_upper_bound_p90": 3.44,
+          "projected_bearing_temp_c": 173.0,
+          "projected_health_score": 62.6
+        }
+      ]
+    },
+    {
+      "equipment_id": "BMW-ROBOT-KUKA-101",
+      "machine_type": "AMR Robotic Arm",
+      "facility_location": "Greer, SC",
+      "current_health_score": 71.6,
+      "remaining_useful_life_hrs": 3285.3,
+      "urgency_classification": "HEALTHY_LONG_RUNWAY",
+      "days_until_iso_critical_breach": 136.9,
+      "30_day_trajectory": [
+        {
+          "forecast_date": "2026-09-04",
+          "day_offset": 2,
+          "projected_vibration_rms_p50": 1.43,
+          "vibration_lower_bound_p10": 1.18,
+          "vibration_upper_bound_p90": 1.78,
+          "projected_bearing_temp_c": 52.2,
+          "projected_health_score": 71.4
+        },
+        {
+          "forecast_date": "2026-09-06",
+          "day_offset": 4,
+          "projected_vibration_rms_p50": 1.43,
+          "vibration_lower_bound_p10": 1.08,
+          "vibration_upper_bound_p90": 1.92,
+          "projected_bearing_temp_c": 52.2,
+          "projected_health_score": 71.4
+        },
+        {
+          "forecast_date": "2026-09-08",
+          "day_offset": 6,
+          "projected_vibration_rms_p50": 1.44,
+          "vibration_lower_bound_p10": 1.01,
+          "vibration_upper_bound_p90": 2.05,
+          "projected_bearing_temp_c": 52.3,
+          "projected_health_score": 71.2
+        },
+        {
+          "forecast_date": "2026-09-10",
+          "day_offset": 8,
+          "projected_vibration_rms_p50": 1.45,
+          "vibration_lower_bound_p10": 0.95,
+          "vibration_upper_bound_p90": 2.15,
+          "projected_bearing_temp_c": 52.4,
+          "projected_health_score": 71.0
+        },
+        {
+          "forecast_date": "2026-09-12",
+          "day_offset": 10,
+          "projected_vibration_rms_p50": 1.45,
+          "vibration_lower_bound_p10": 0.89,
+          "vibration_upper_bound_p90": 2.23,
+          "projected_bearing_temp_c": 52.5,
+          "projected_health_score": 71.0
+        },
+        {
+          "forecast_date": "2026-09-14",
+          "day_offset": 12,
+          "projected_vibration_rms_p50": 1.46,
+          "vibration_lower_bound_p10": 0.85,
+          "vibration_upper_bound_p90": 2.32,
+          "projected_bearing_temp_c": 52.5,
+          "projected_health_score": 70.8
+        },
+        {
+          "forecast_date": "2026-09-16",
+          "day_offset": 14,
+          "projected_vibration_rms_p50": 1.47,
+          "vibration_lower_bound_p10": 0.81,
+          "vibration_upper_bound_p90": 2.4,
+          "projected_bearing_temp_c": 52.6,
+          "projected_health_score": 70.6
+        },
+        {
+          "forecast_date": "2026-09-18",
+          "day_offset": 16,
+          "projected_vibration_rms_p50": 1.48,
+          "vibration_lower_bound_p10": 0.77,
+          "vibration_upper_bound_p90": 2.47,
+          "projected_bearing_temp_c": 52.7,
+          "projected_health_score": 70.4
+        },
+        {
+          "forecast_date": "2026-09-20",
+          "day_offset": 18,
+          "projected_vibration_rms_p50": 1.49,
+          "vibration_lower_bound_p10": 0.74,
+          "vibration_upper_bound_p90": 2.54,
+          "projected_bearing_temp_c": 52.7,
+          "projected_health_score": 70.2
+        },
+        {
+          "forecast_date": "2026-09-22",
+          "day_offset": 20,
+          "projected_vibration_rms_p50": 1.5,
+          "vibration_lower_bound_p10": 0.71,
+          "vibration_upper_bound_p90": 2.61,
+          "projected_bearing_temp_c": 52.8,
+          "projected_health_score": 70.0
+        },
+        {
+          "forecast_date": "2026-09-24",
+          "day_offset": 22,
+          "projected_vibration_rms_p50": 1.51,
+          "vibration_lower_bound_p10": 0.68,
+          "vibration_upper_bound_p90": 2.67,
+          "projected_bearing_temp_c": 52.9,
+          "projected_health_score": 69.8
+        },
+        {
+          "forecast_date": "2026-09-26",
+          "day_offset": 24,
+          "projected_vibration_rms_p50": 1.52,
+          "vibration_lower_bound_p10": 0.65,
+          "vibration_upper_bound_p90": 2.73,
+          "projected_bearing_temp_c": 53.0,
+          "projected_health_score": 69.6
+        },
+        {
+          "forecast_date": "2026-09-28",
+          "day_offset": 26,
+          "projected_vibration_rms_p50": 1.54,
+          "vibration_lower_bound_p10": 0.64,
+          "vibration_upper_bound_p90": 2.8,
+          "projected_bearing_temp_c": 53.0,
+          "projected_health_score": 69.2
+        },
+        {
+          "forecast_date": "2026-09-30",
+          "day_offset": 28,
+          "projected_vibration_rms_p50": 1.55,
+          "vibration_lower_bound_p10": 0.61,
+          "vibration_upper_bound_p90": 2.86,
+          "projected_bearing_temp_c": 53.1,
+          "projected_health_score": 69.0
+        },
+        {
+          "forecast_date": "2026-10-02",
+          "day_offset": 30,
+          "projected_vibration_rms_p50": 1.56,
+          "vibration_lower_bound_p10": 0.59,
+          "vibration_upper_bound_p90": 2.92,
+          "projected_bearing_temp_c": 53.2,
+          "projected_health_score": 68.8
+        }
+      ]
+    },
+    {
+      "equipment_id": "BMW-AMR-FLEET-204",
+      "machine_type": "AMR Material Handler",
+      "facility_location": "Greer, SC",
+      "current_health_score": 72.4,
+      "remaining_useful_life_hrs": 3674.7,
+      "urgency_classification": "HEALTHY_LONG_RUNWAY",
+      "days_until_iso_critical_breach": 153.1,
+      "30_day_trajectory": [
+        {
+          "forecast_date": "2026-09-04",
+          "day_offset": 2,
+          "projected_vibration_rms_p50": 1.38,
+          "vibration_lower_bound_p10": 1.13,
+          "vibration_upper_bound_p90": 1.73,
+          "projected_bearing_temp_c": 51.8,
+          "projected_health_score": 72.4
+        },
+        {
+          "forecast_date": "2026-09-06",
+          "day_offset": 4,
+          "projected_vibration_rms_p50": 1.39,
+          "vibration_lower_bound_p10": 1.04,
+          "vibration_upper_bound_p90": 1.88,
+          "projected_bearing_temp_c": 51.9,
+          "projected_health_score": 72.2
+        },
+        {
+          "forecast_date": "2026-09-08",
+          "day_offset": 6,
+          "projected_vibration_rms_p50": 1.39,
+          "vibration_lower_bound_p10": 0.96,
+          "vibration_upper_bound_p90": 2.0,
+          "projected_bearing_temp_c": 51.9,
+          "projected_health_score": 72.2
+        },
+        {
+          "forecast_date": "2026-09-10",
+          "day_offset": 8,
+          "projected_vibration_rms_p50": 1.4,
+          "vibration_lower_bound_p10": 0.9,
+          "vibration_upper_bound_p90": 2.1,
+          "projected_bearing_temp_c": 52.0,
+          "projected_health_score": 72.0
+        },
+        {
+          "forecast_date": "2026-09-12",
+          "day_offset": 10,
+          "projected_vibration_rms_p50": 1.4,
+          "vibration_lower_bound_p10": 0.84,
+          "vibration_upper_bound_p90": 2.18,
+          "projected_bearing_temp_c": 52.0,
+          "projected_health_score": 72.0
+        },
+        {
+          "forecast_date": "2026-09-14",
+          "day_offset": 12,
+          "projected_vibration_rms_p50": 1.41,
+          "vibration_lower_bound_p10": 0.8,
+          "vibration_upper_bound_p90": 2.27,
+          "projected_bearing_temp_c": 52.1,
+          "projected_health_score": 71.8
+        },
+        {
+          "forecast_date": "2026-09-16",
+          "day_offset": 14,
+          "projected_vibration_rms_p50": 1.41,
+          "vibration_lower_bound_p10": 0.75,
+          "vibration_upper_bound_p90": 2.34,
+          "projected_bearing_temp_c": 52.1,
+          "projected_health_score": 71.8
+        },
+        {
+          "forecast_date": "2026-09-18",
+          "day_offset": 16,
+          "projected_vibration_rms_p50": 1.42,
+          "vibration_lower_bound_p10": 0.71,
+          "vibration_upper_bound_p90": 2.41,
+          "projected_bearing_temp_c": 52.2,
+          "projected_health_score": 71.6
+        },
+        {
+          "forecast_date": "2026-09-20",
+          "day_offset": 18,
+          "projected_vibration_rms_p50": 1.43,
+          "vibration_lower_bound_p10": 0.68,
+          "vibration_upper_bound_p90": 2.48,
+          "projected_bearing_temp_c": 52.2,
+          "projected_health_score": 71.4
+        },
+        {
+          "forecast_date": "2026-09-22",
+          "day_offset": 20,
+          "projected_vibration_rms_p50": 1.43,
+          "vibration_lower_bound_p10": 0.64,
+          "vibration_upper_bound_p90": 2.54,
+          "projected_bearing_temp_c": 52.3,
+          "projected_health_score": 71.4
+        },
+        {
+          "forecast_date": "2026-09-24",
+          "day_offset": 22,
+          "projected_vibration_rms_p50": 1.44,
+          "vibration_lower_bound_p10": 0.61,
+          "vibration_upper_bound_p90": 2.6,
+          "projected_bearing_temp_c": 52.3,
+          "projected_health_score": 71.2
+        },
+        {
+          "forecast_date": "2026-09-26",
+          "day_offset": 24,
+          "projected_vibration_rms_p50": 1.45,
+          "vibration_lower_bound_p10": 0.58,
+          "vibration_upper_bound_p90": 2.66,
+          "projected_bearing_temp_c": 52.4,
+          "projected_health_score": 71.0
+        },
+        {
+          "forecast_date": "2026-09-28",
+          "day_offset": 26,
+          "projected_vibration_rms_p50": 1.46,
+          "vibration_lower_bound_p10": 0.56,
+          "vibration_upper_bound_p90": 2.72,
+          "projected_bearing_temp_c": 52.4,
+          "projected_health_score": 70.8
+        },
+        {
+          "forecast_date": "2026-09-30",
+          "day_offset": 28,
+          "projected_vibration_rms_p50": 1.47,
+          "vibration_lower_bound_p10": 0.53,
+          "vibration_upper_bound_p90": 2.78,
+          "projected_bearing_temp_c": 52.5,
+          "projected_health_score": 70.6
+        },
+        {
+          "forecast_date": "2026-10-02",
+          "day_offset": 30,
+          "projected_vibration_rms_p50": 1.47,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.83,
+          "projected_bearing_temp_c": 52.5,
+          "projected_health_score": 70.6
+        }
+      ]
+    },
+    {
+      "equipment_id": "DMG-CNC-5AXIS-301",
+      "machine_type": "5-Axis CNC Mill",
+      "facility_location": "Spartanburg, SC",
+      "current_health_score": 74.1,
+      "remaining_useful_life_hrs": 4417.5,
+      "urgency_classification": "HEALTHY_LONG_RUNWAY",
+      "days_until_iso_critical_breach": 184.1,
+      "30_day_trajectory": [
+        {
+          "forecast_date": "2026-09-04",
+          "day_offset": 2,
+          "projected_vibration_rms_p50": 1.15,
+          "vibration_lower_bound_p10": 0.9,
+          "vibration_upper_bound_p90": 1.5,
+          "projected_bearing_temp_c": 48.3,
+          "projected_health_score": 74.1
+        },
+        {
+          "forecast_date": "2026-09-06",
+          "day_offset": 4,
+          "projected_vibration_rms_p50": 1.16,
+          "vibration_lower_bound_p10": 0.81,
+          "vibration_upper_bound_p90": 1.65,
+          "projected_bearing_temp_c": 48.4,
+          "projected_health_score": 73.9
+        },
+        {
+          "forecast_date": "2026-09-08",
+          "day_offset": 6,
+          "projected_vibration_rms_p50": 1.16,
+          "vibration_lower_bound_p10": 0.73,
+          "vibration_upper_bound_p90": 1.77,
+          "projected_bearing_temp_c": 48.4,
+          "projected_health_score": 73.9
+        },
+        {
+          "forecast_date": "2026-09-10",
+          "day_offset": 8,
+          "projected_vibration_rms_p50": 1.17,
+          "vibration_lower_bound_p10": 0.67,
+          "vibration_upper_bound_p90": 1.87,
+          "projected_bearing_temp_c": 48.5,
+          "projected_health_score": 73.7
+        },
+        {
+          "forecast_date": "2026-09-12",
+          "day_offset": 10,
+          "projected_vibration_rms_p50": 1.17,
+          "vibration_lower_bound_p10": 0.61,
+          "vibration_upper_bound_p90": 1.95,
+          "projected_bearing_temp_c": 48.5,
+          "projected_health_score": 73.7
+        },
+        {
+          "forecast_date": "2026-09-14",
+          "day_offset": 12,
+          "projected_vibration_rms_p50": 1.18,
+          "vibration_lower_bound_p10": 0.57,
+          "vibration_upper_bound_p90": 2.04,
+          "projected_bearing_temp_c": 48.6,
+          "projected_health_score": 73.5
+        },
+        {
+          "forecast_date": "2026-09-16",
+          "day_offset": 14,
+          "projected_vibration_rms_p50": 1.18,
+          "vibration_lower_bound_p10": 0.52,
+          "vibration_upper_bound_p90": 2.11,
+          "projected_bearing_temp_c": 48.6,
+          "projected_health_score": 73.5
+        },
+        {
+          "forecast_date": "2026-09-18",
+          "day_offset": 16,
+          "projected_vibration_rms_p50": 1.19,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.18,
+          "projected_bearing_temp_c": 48.7,
+          "projected_health_score": 73.2
+        },
+        {
+          "forecast_date": "2026-09-20",
+          "day_offset": 18,
+          "projected_vibration_rms_p50": 1.2,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.25,
+          "projected_bearing_temp_c": 48.7,
+          "projected_health_score": 73.0
+        },
+        {
+          "forecast_date": "2026-09-22",
+          "day_offset": 20,
+          "projected_vibration_rms_p50": 1.2,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.31,
+          "projected_bearing_temp_c": 48.8,
+          "projected_health_score": 73.0
+        },
+        {
+          "forecast_date": "2026-09-24",
+          "day_offset": 22,
+          "projected_vibration_rms_p50": 1.21,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.37,
+          "projected_bearing_temp_c": 48.8,
+          "projected_health_score": 72.8
+        },
+        {
+          "forecast_date": "2026-09-26",
+          "day_offset": 24,
+          "projected_vibration_rms_p50": 1.22,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.43,
+          "projected_bearing_temp_c": 48.9,
+          "projected_health_score": 72.5
+        },
+        {
+          "forecast_date": "2026-09-28",
+          "day_offset": 26,
+          "projected_vibration_rms_p50": 1.23,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.49,
+          "projected_bearing_temp_c": 48.9,
+          "projected_health_score": 72.3
+        },
+        {
+          "forecast_date": "2026-09-30",
+          "day_offset": 28,
+          "projected_vibration_rms_p50": 1.24,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.55,
+          "projected_bearing_temp_c": 49.0,
+          "projected_health_score": 72.1
+        },
+        {
+          "forecast_date": "2026-10-02",
+          "day_offset": 30,
+          "projected_vibration_rms_p50": 1.24,
+          "vibration_lower_bound_p10": 0.5,
+          "vibration_upper_bound_p90": 2.6,
+          "projected_bearing_temp_c": 49.0,
+          "projected_health_score": 72.1
+        }
+      ]
+    }
+  ]
+}

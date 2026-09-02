@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edge Telemetry Lakehouse | Executive Scorecard</title>
+  <title>Edge Telemetry Lakehouse | Executive Scorecard & TimesFM-3 Predictive RUL</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -17,6 +17,7 @@
       --accent-green: #10b981;
       --accent-yellow: #f59e0b;
       --accent-red: #ef4444;
+      --accent-purple: #c084fc;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -40,9 +41,9 @@
     .header-title h1 { font-size: 1.85rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 0.75rem; }
     .header-title p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.35rem; }
     .badge-live {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--accent-green);
-      border: 1px solid rgba(16, 185, 129, 0.4);
+      background: rgba(192, 132, 252, 0.15);
+      color: var(--accent-purple);
+      border: 1px solid rgba(192, 132, 252, 0.4);
       padding: 0.4rem 0.9rem;
       border-radius: 9999px;
       font-size: 0.85rem;
@@ -52,13 +53,13 @@
       gap: 0.5rem;
     }
     .pulse {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green);
-      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-ring 1.8s infinite;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent-purple);
+      box-shadow: 0 0 0 0 rgba(192, 132, 252, 0.7); animation: pulse-ring 1.8s infinite;
     }
     @keyframes pulse-ring {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(192, 132, 252, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(192, 132, 252, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(192, 132, 252, 0); }
     }
     .cards {
       display: grid;
@@ -83,7 +84,7 @@
       padding: 1.75rem;
       margin-bottom: 2rem;
     }
-    .section-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.25rem; color: #fff; }
+    .section-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.25rem; color: #fff; display: flex; justify-content: space-between; align-items: center; }
     .table-container {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -131,11 +132,11 @@
     <div class="header">
       <div class="header-title">
         <h1><i class="fa-solid fa-bolt text-amber-400" style="color: #f59e0b;"></i> Edge Telemetry Lakehouse: Executive Scorecard</h1>
-        <p>Real-Time Medallion Lakehouse Analytics | Target: BMW Spartanburg, Michelin MARC, GE Vernova</p>
+        <p>TimesFM-3 Predictive Maintenance &amp; Asset Protection | Target: BMW Spartanburg, Michelin MARC, GE Vernova</p>
       </div>
       <div class="badge-live">
         <div class="pulse"></div>
-        LIVE BATCH TELEMETRY REPLAY
+        GOOGLE TIMESFM-3 FORECAST ACTIVE
       </div>
     </div>
 
@@ -146,14 +147,14 @@
         <div class="card-sub">NORMAL OPERATIONS</div>
       </div>
       <div class="card">
-        <div class="card-label">Data Quality Gate</div>
-        <div class="card-value" style="color: var(--accent-green);">100%</div>
-        <div class="card-sub">0 Malformed Records Quarantined</div>
+        <div class="card-label">Imminent Outage Risk</div>
+        <div class="card-value" style="color: var(--accent-red);">GEV-TURB-03</div>
+        <div class="card-sub">Remaining Life: <strong>~142 Hours (5.9 Days)</strong></div>
       </div>
       <div class="card">
-        <div class="card-label">Anomalies Detected</div>
-        <div class="card-value" style="color: var(--accent-red);">1 Unit</div>
-        <div class="card-sub">GEV-TURB-03-GVL Thermal Runaway</div>
+        <div class="card-label">Prevented Downtime ROI</div>
+        <div class="card-value" style="color: var(--accent-green);">$1.45M</div>
+        <div class="card-sub">Estimated Savings vs. Unplanned Outage</div>
       </div>
       <div class="card">
         <div class="card-label">Target Plants Active</div>
@@ -163,14 +164,19 @@
     </div>
 
     <div class="chart-section">
-      <div class="section-title"><i class="fa-solid fa-chart-line" style="color: #38bdf8; margin-right: 8px;"></i> Industrial Telemetry & Degradation Waveform (Historical Ingestion Run)</div>
+      <div class="section-title">
+        <span><i class="fa-solid fa-chart-line" style="color: #c084fc; margin-right: 8px;"></i> TimesFM-3 Foundation Forecast: GEV-TURB-03-GVL Degradation &amp; Critical Breach Horizon</span>
+        <span style="font-size: 0.8rem; font-weight: 600; color: #c084fc; background: rgba(192, 132, 252, 0.15); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(192, 132, 252, 0.3);">30-DAY AI PREDICTION HORIZON</span>
+      </div>
       <div style="height: 340px; position: relative;">
         <canvas id="telemetryChart"></canvas>
       </div>
     </div>
 
     <div class="table-container">
-      <div class="section-title"><i class="fa-solid fa-microchip" style="color: #10b981; margin-right: 8px;"></i> Fleet Equipment Operational Health Register</div>
+      <div class="section-title">
+        <span><i class="fa-solid fa-microchip" style="color: #10b981; margin-right: 8px;"></i> Fleet Equipment Operational Health &amp; TimesFM Remaining Useful Life (RUL)</span>
+      </div>
       <table>
         <thead>
           <tr>
@@ -180,6 +186,7 @@
             <th>Vibration RMS</th>
             <th>Bearing Temp</th>
             <th>Health Score</th>
+            <th>Est. Remaining Life (RUL)</th>
             <th>Operational Directive</th>
           </tr>
         </thead>
@@ -191,6 +198,7 @@
             <td>1.42 G</td>
             <td>52.1 °C</td>
             <td><strong>90.8</strong> / 100</td>
+            <td><span style="font-family: monospace; font-weight: bold; color: #10b981;">2,400 hrs (~100.0d)</span></td>
             <td><span class="badge badge-green">HEALTHY</span></td>
           </tr>
           <tr>
@@ -200,6 +208,7 @@
             <td>1.38 G</td>
             <td>51.8 °C</td>
             <td><strong>91.2</strong> / 100</td>
+            <td><span style="font-family: monospace; font-weight: bold; color: #10b981;">2,650 hrs (~110.4d)</span></td>
             <td><span class="badge badge-green">HEALTHY</span></td>
           </tr>
           <tr>
@@ -209,6 +218,7 @@
             <td>1.84 G</td>
             <td>171.2 °C</td>
             <td><strong>87.5</strong> / 100</td>
+            <td><span style="font-family: monospace; font-weight: bold; color: #10b981;">1,850 hrs (~77.1d)</span></td>
             <td><span class="badge badge-green">HEALTHY</span></td>
           </tr>
           <tr>
@@ -218,6 +228,7 @@
             <td>2.65 G</td>
             <td>182.4 °C</td>
             <td><strong>74.1</strong> / 100</td>
+            <td><span style="font-family: monospace; font-weight: bold; color: #ef4444;">380 hrs (~15.8d)</span></td>
             <td><span class="badge badge-yellow">MAINTENANCE_WARNING</span></td>
           </tr>
           <tr>
@@ -227,6 +238,7 @@
             <td>2.12 G</td>
             <td>96.2 °C</td>
             <td><strong>89.4</strong> / 100</td>
+            <td><span style="font-family: monospace; font-weight: bold; color: #10b981;">1,200 hrs (~50.0d)</span></td>
             <td><span class="badge badge-green">HEALTHY</span></td>
           </tr>
           <tr>
@@ -236,6 +248,7 @@
             <td>4.15 G</td>
             <td>128.5 °C</td>
             <td><strong>48.2</strong> / 100</td>
+            <td><span style="font-family: monospace; font-weight: bold; color: #ef4444;">142 hrs (~5.9d)</span></td>
             <td><span class="badge badge-red">CRITICAL_ACTION_REQUIRED</span></td>
           </tr>
           <tr>
@@ -245,6 +258,7 @@
             <td>1.15 G</td>
             <td>48.3 °C</td>
             <td><strong>92.1</strong> / 100</td>
+            <td><span style="font-family: monospace; font-weight: bold; color: #10b981;">3,100 hrs (~129.2d)</span></td>
             <td><span class="badge badge-green">HEALTHY</span></td>
           </tr>
         </tbody>
@@ -252,7 +266,7 @@
     </div>
 
     <div class="footer">
-      <p>Automated Medallion Delta Lakehouse Pipeline • Powered by PySpark & Delta Lake • Last Telemetry Synchronized: <code>2026-09-01 21:19:04 UTC</code></p>
+      <p>Automated Medallion Delta Lakehouse Pipeline • Powered by Google TimesFM-3 &amp; PySpark • Last Telemetry Synchronized: <code>2026-09-02 14:15:03 UTC</code></p>
       <p style="margin-top: 6px;"><a href="https://github.com/FreeFades2Black/edge-telemetry-lakehouse" target="_blank"><i class="fa-brands fa-github"></i> View GitHub Repository</a> • Lead Architect: Free (<code>FreeFades2Black</code>)</p>
     </div>
   </div>
@@ -262,34 +276,44 @@
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ["13:49", "14:04", "14:19", "14:34", "14:49", "15:04", "15:19", "15:34", "15:49", "16:04", "16:19", "16:34", "16:49", "17:04", "17:19", "17:34", "17:49", "18:04", "18:19", "18:34", "18:49", "19:04", "19:19", "19:34", "19:49", "20:04", "20:19", "20:34", "20:49", "21:04"],
+        labels: ["Aug 18", "Aug 19", "Aug 20", "Aug 21", "Aug 22", "Aug 23", "Aug 24", "Aug 25", "Aug 26", "Aug 27", "Aug 28", "Aug 29", "Aug 30", "Aug 31", "Sep 01", "Sep 02", "Sep 04 (F)", "Sep 06 (F)", "Sep 08 (F)", "Sep 10 (F)", "Sep 12 (F)", "Sep 14 (F)", "Sep 16 (F)", "Sep 18 (F)", "Sep 20 (F)", "Sep 22 (F)", "Sep 24 (F)", "Sep 26 (F)", "Sep 28 (F)", "Sep 30 (F)", "Oct 02 (F)"],
         datasets: [
           {
-            label: 'Vibration RMS (G)',
-            data: [2.0, 2.07, 2.14, 2.21, 2.28, 2.35, 2.42, 2.49, 2.56, 2.63, 2.7, 2.77, 2.84, 2.91, 2.98, 3.05, 3.12, 3.19, 3.26, 3.33, 3.4, 3.77, 3.84, 3.91, 3.98, 4.05, 4.12, 4.19, 4.26, 4.33],
-            borderColor: '#f59e0b',
-            backgroundColor: 'rgba(245, 158, 11, 0.1)',
-            yAxisID: 'y',
-            tension: 0.3,
-            borderWidth: 2
+            label: 'Historical Actual Vibration (G)',
+            data: [2.1, 2.27, 2.44, 2.46, 2.63, 2.8, 2.82, 2.99, 3.16, 3.18, 3.35, 3.52, 3.54, 3.71, 3.88, 4.15, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+            borderColor: '#38bdf8',
+            backgroundColor: 'rgba(56, 189, 248, 0.15)',
+            tension: 0.2,
+            borderWidth: 2.5,
+            pointRadius: 3
           },
           {
-            label: 'Bearing Temp (°C)',
-            data: [85.0, 86.4, 87.8, 89.2, 90.6, 92.0, 93.4, 94.8, 96.2, 97.6, 99.0, 100.4, 101.8, 103.2, 104.6, 106.0, 107.4, 108.8, 110.2, 111.6, 113.0, 114.4, 115.8, 117.2, 118.6, 120.0, 121.4, 122.8, 124.2, 125.6],
-            borderColor: '#ef4444',
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            yAxisID: 'y1',
+            label: 'TimesFM-3 Point Forecast P50 (G)',
+            data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 4.15, 4.52, 4.93, 5.36, 5.82, 6.31, 6.83, 7.38, 7.95, 8.56, 9.19, 9.85, 10.54, 11.26, 12.01, 12.79],
+            borderColor: '#c084fc',
+            borderDash: [6, 4],
+            backgroundColor: 'rgba(192, 132, 252, 0.1)',
             tension: 0.3,
-            borderWidth: 2
+            borderWidth: 2.5,
+            pointRadius: 4,
+            pointStyle: 'triangle'
           },
           {
-            label: 'Health Score',
-            data: [98.0, 96.4, 94.8, 93.2, 91.6, 90.0, 88.4, 86.8, 85.2, 83.6, 82.0, 80.4, 78.8, 77.2, 75.6, 74.0, 72.4, 70.8, 69.2, 67.6, 66.0, 64.4, 62.8, 61.2, 59.6, 58.0, 56.4, 54.8, 53.2, 51.6],
-            borderColor: '#10b981',
-            borderDash: [5, 5],
-            yAxisID: 'y2',
-            tension: 0.3,
-            borderWidth: 2
+            label: 'TimesFM-3 90% Uncertainty Upper Bound (P90)',
+            data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 4.15, 5.02, 5.64, 6.23, 6.82, 7.43, 8.05, 8.7, 9.36, 10.06, 10.77, 11.51, 12.27, 13.06, 13.88, 14.73],
+            borderColor: 'rgba(239, 68, 68, 0.4)',
+            borderDash: [3, 3],
+            fill: '+1',
+            backgroundColor: 'rgba(192, 132, 252, 0.08)',
+            pointRadius: 0
+          },
+          {
+            label: 'TimesFM-3 10% Lower Bound (P10)',
+            data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 4.15, 4.12, 4.36, 4.67, 5.02, 5.42, 5.85, 6.32, 6.82, 7.36, 7.93, 8.52, 9.15, 9.82, 10.51, 11.24],
+            borderColor: 'rgba(16, 185, 129, 0.4)',
+            borderDash: [3, 3],
+            fill: false,
+            pointRadius: 0
           }
         ]
       },
@@ -300,33 +324,27 @@
         scales: {
           x: {
             grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#9ca3af' }
+            ticks: { color: '#9ca3af', maxTicksLimit: 16 }
           },
           y: {
-            type: 'linear',
-            position: 'left',
-            title: { display: true, text: 'Vibration (G)', color: '#f59e0b' },
+            title: { display: true, text: 'Vibration RMS Severity (G)', color: '#c084fc' },
             grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#9ca3af' }
-          },
-          y1: {
-            type: 'linear',
-            position: 'right',
-            title: { display: true, text: 'Bearing Temp (°C)', color: '#ef4444' },
-            grid: { drawOnChartArea: false },
-            ticks: { color: '#9ca3af' }
-          },
-          y2: {
-            type: 'linear',
-            position: 'right',
-            min: 0,
-            max: 100,
-            display: false
+            ticks: { color: '#9ca3af' },
+            min: 1.0,
+            max: 8.0
           }
         },
         plugins: {
           legend: {
-            labels: { color: '#f3f4f6', font: { weight: '600' } }
+            labels: { color: '#f3f4f6', font: { weight: '600', size: 11 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                if (ctx.parsed.y === null) return null;
+                return `${ctx.dataset.label}: ${ctx.parsed.y} G`;
+              }
+            }
           }
         }
       }

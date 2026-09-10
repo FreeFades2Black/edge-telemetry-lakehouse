@@ -7,3 +7,4 @@ __pycache__/
 *.tfstate*
 .env
 data/bronze/bronze_telemetry_20*.json
+data/bronze/bronze_benchmark_*.json

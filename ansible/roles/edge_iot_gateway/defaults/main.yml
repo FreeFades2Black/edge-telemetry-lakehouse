@@ -1,0 +1,59 @@
+---
+# defaults file for roles/edge_iot_gateway
+
+# Installation & Directory Hierarchy
+edge_install_dir: "/opt/edge-lakehouse"
+edge_config_dir: "/etc/edge-lakehouse"
+edge_log_dir: "/var/log/edge-lakehouse"
+edge_buffer_dir: "/var/lib/edge-lakehouse/buffer"
+edge_spool_dir: "/var/lib/edge-lakehouse/spool"
+
+# System User & Group
+edge_user: "edge-iot"
+edge_group: "industrial"
+edge_user_shell: "/sbin/nologin"
+edge_create_user: true
+
+# Machine & Plant Identity (Overridable per host/group)
+facility_id: "PLANT-DEFAULT-01"
+plant_location: "GREENVILLE_SC_USA"
+primary_machine: "GE_HA_GAS_TURBINE"
+firmware_version: "v2.4.1"
+
+# Telemetry Sampling & Protocol
+collector_interval_sec: 1.0
+collector_batch_size: 10
+collector_simulated_anomaly_rate: 0.05
+collector_log_level: "INFO"
+
+# Ingestion Backend Target
+lakehouse_ingest_endpoint: "https://telemetry.lakehouse.internal/v1/bronze/ingest"
+lakehouse_ingest_mode: "hybrid" # stream, spool, or hybrid
+lakehouse_offline_buffer_enabled: true
+lakehouse_max_buffer_mb: 512
+
+# Python Environment
+edge_venv_dir: "{{ edge_install_dir }}/venv"
+edge_python_bin: "/usr/bin/python3"
+edge_install_dependencies: true
+
+# Systemd Daemon Constraints
+edge_service_enabled: true
+edge_service_state: "started"
+edge_service_restart_on_failure: true
+edge_service_restart_sec: 5
+edge_service_memory_max: "512M"
+edge_service_cpu_quota: "50%"
+
+# Systemd Health Check Timer
+edge_healthcheck_enabled: true
+edge_healthcheck_interval: "5min"
+
+# Logrotate Policy
+edge_log_rotate_count: 7
+edge_log_rotate_size: "50M"
+
+# Host Kernel Network Optimization for Real-time Streaming
+edge_kernel_tcp_tune: true
+edge_rmem_max: 16777216
+edge_wmem_max: 16777216

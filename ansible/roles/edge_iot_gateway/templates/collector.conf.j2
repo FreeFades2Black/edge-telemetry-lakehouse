@@ -1,0 +1,17 @@
+{
+  "facility_id": "{{ facility_id }}",
+  "plant_location": "{{ plant_location }}",
+  "primary_machine": "{{ primary_machine }}",
+  "firmware_version": "{{ firmware_version }}",
+  "telemetry_interval_sec": {{ collector_interval_sec }},
+  "batch_size": {{ collector_batch_size }},
+  "simulated_anomaly_rate": {{ collector_simulated_anomaly_rate }},
+  "log_level": "{{ collector_log_level }}",
+  "log_file": "{{ edge_log_dir }}/collector.log",
+  "spool_dir": "{{ edge_spool_dir }}",
+  "buffer_dir": "{{ edge_buffer_dir }}",
+  "offline_buffer_enabled": {{ lakehouse_offline_buffer_enabled | to_json }},
+  "max_buffer_mb": {{ lakehouse_max_buffer_mb }},
+  "ingest_mode": "{{ lakehouse_ingest_mode }}",
+  "ingest_endpoint": "{{ lakehouse_ingest_endpoint }}"
+}

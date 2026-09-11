@@ -1,0 +1,4 @@
+---
+# Master site playbook for Industrial Edge Telemetry Lakehouse
+- name: Master Edge Fleet Deployment
+  ansible.builtin.import_playbook: provision-edge-gateways.yml

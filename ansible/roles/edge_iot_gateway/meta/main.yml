@@ -1,0 +1,33 @@
+---
+galaxy_info:
+  author: Free (FreeFades2Black)
+  description: Industrial IoT Edge Gateway & Telemetry Forwarder Provisioning Role for Multi-Cloud Lakehouse
+  company: FreeFades2Black
+  license: MIT
+  min_ansible_version: "2.14"
+  platforms:
+    - name: Archlinux
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+        - noble
+    - name: EL
+      versions:
+        - "8"
+        - "9"
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+  galaxy_tags:
+    - iot
+    - telemetry
+    - lakehouse
+    - edge
+    - industrial
+    - systemd
+
+dependencies: []

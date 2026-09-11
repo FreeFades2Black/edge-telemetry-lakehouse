@@ -1,0 +1,265 @@
+#!/usr/bin/env python3
+"""
+Multi-Cloud Edge Telemetry Lakehouse - Factory Edge Collector Daemon
+Installed via Ansible: roles/edge_iot_gateway
+Target Nodes: BMW Greer, Michelin Greenville, GE Vernova, Spartanburg CNC, Omarchy Edge Node
+"""
+
+import sys
+import os
+import time
+import json
+import uuid
+import random
+import signal
+import logging
+import argparse
+from datetime import datetime, timezone
+from pathlib import Path
+
+# Baseline operating parameters per machine class
+MACHINE_BASELINES = {
+    "GE_HA_GAS_TURBINE": {
+        "vibration_mean": 2.1, "vibration_std": 0.35, "vibration_max_normal": 4.5,
+        "temp_mean": 95.0, "temp_std": 6.5, "temp_max_normal": 120.0,
+        "rpm_mean": 3600.0, "rpm_std": 15.0,
+        "power_mean": 3500.0, "power_std": 120.0,
+        "devices": ["GEV-TURB-01-GVL", "GEV-TURB-02-GVL", "GEV-TURB-03-GVL"]
+    },
+    "BMW_AMR_ROBOT_KUKA": {
+        "vibration_mean": 1.4, "vibration_std": 0.25, "vibration_max_normal": 3.2,
+        "temp_mean": 52.0, "temp_std": 4.0, "temp_max_normal": 75.0,
+        "rpm_mean": 1500.0, "rpm_std": 45.0,
+        "power_mean": 45.0, "power_std": 5.5,
+        "devices": ["BMW-ROBOT-KUKA-101", "BMW-ROBOT-KUKA-102", "BMW-AMR-FLEET-204"]
+    },
+    "MICHELIN_CURING_PRESS": {
+        "vibration_mean": 1.8, "vibration_std": 0.30, "vibration_max_normal": 3.8,
+        "temp_mean": 170.0, "temp_std": 8.0, "temp_max_normal": 195.0,
+        "rpm_mean": 600.0, "rpm_std": 20.0,
+        "power_mean": 220.0, "power_std": 18.0,
+        "devices": ["MICH-PRESS-MARC-01", "MICH-PRESS-MARC-02", "MICH-EXTRUDER-03"]
+    },
+    "DMG_MORI_5AXIS_CNC": {
+        "vibration_mean": 1.1, "vibration_std": 0.20, "vibration_max_normal": 2.8,
+        "temp_mean": 48.0, "temp_std": 3.5, "temp_max_normal": 68.0,
+        "rpm_mean": 12000.0, "rpm_std": 250.0,
+        "power_mean": 35.0, "power_std": 4.0,
+        "devices": ["DMG-CNC-5AXIS-301", "DMG-CNC-5AXIS-302"]
+    }
+}
+
+running = True
+
+
+def signal_handler(signum, frame):
+    global running
+    logging.info(f"Received termination signal {signum}, gracefully shutting down...")
+    running = False
+
+
+class EdgeCollectorDaemon:
+    def __init__(self, config_path: str):
+        self.config_path = config_path
+        self.config = self.load_config()
+        self.setup_logging()
+
+        self.facility_id = self.config.get("facility_id", "PLANT-UNKNOWN")
+        self.plant_location = self.config.get("plant_location", "GREENVILLE_SC_USA")
+        self.primary_machine = self.config.get("primary_machine", "GE_HA_GAS_TURBINE")
+        self.firmware_version = self.config.get("firmware_version", "v2.4.1")
+        self.interval = float(self.config.get("telemetry_interval_sec", 1.0))
+        self.batch_size = int(self.config.get("batch_size", 10))
+        self.anomaly_rate = float(self.config.get("simulated_anomaly_rate", 0.05))
+        self.spool_dir = Path(self.config.get("spool_dir", "/var/lib/edge-lakehouse/spool"))
+        self.buffer_dir = Path(self.config.get("buffer_dir", "/var/lib/edge-lakehouse/buffer"))
+        self.health_file = self.buffer_dir.parent / "collector_health.json"
+
+        self.spool_dir.mkdir(parents=True, exist_ok=True)
+        self.buffer_dir.mkdir(parents=True, exist_ok=True)
+
+        self.total_frames_generated = 0
+        self.total_batches_spooled = 0
+        self.total_anomalies_detected = 0
+        self.start_time = datetime.now(timezone.utc)
+
+    def load_config(self) -> dict:
+        if not os.path.exists(self.config_path):
+            return {}
+        with open(self.config_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def setup_logging(self):
+        log_file = self.config.get("log_file", "/var/log/edge-lakehouse/collector.log")
+        log_level = getattr(logging, self.config.get("log_level", "INFO").upper(), logging.INFO)
+        try:
+            os.makedirs(os.path.dirname(log_file), exist_ok=True)
+            logging.basicConfig(
+                level=log_level,
+                format="%(asctime)s [%(levelname)s] [edge-collector] %(message)s",
+                handlers=[
+                    logging.FileHandler(log_file),
+                    logging.StreamHandler(sys.stdout)
+                ]
+            )
+        except Exception:
+            logging.basicConfig(
+                level=log_level,
+                format="%(asctime)s [%(levelname)s] [edge-collector] %(message)s",
+                handlers=[logging.StreamHandler(sys.stdout)]
+            )
+
+    def generate_sensor_frame(self, force_anomaly: bool = False) -> dict:
+        cfg = MACHINE_BASELINES.get(self.primary_machine, MACHINE_BASELINES["GE_HA_GAS_TURBINE"])
+        device_id = random.choice(cfg["devices"])
+        is_anomaly = force_anomaly or (random.random() < self.anomaly_rate)
+
+        if is_anomaly:
+            self.total_anomalies_detected += 1
+            anomaly_type = random.choice(["BEARING_VIBRATION_SPIKE", "THERMAL_RUNAWAY", "ROTOR_IMBALANCE"])
+            if anomaly_type == "BEARING_VIBRATION_SPIKE":
+                vib = cfg["vibration_mean"] + random.uniform(3.5, 9.0)
+                temp = cfg["temp_mean"] + random.uniform(5.0, 15.0)
+                rpm = cfg["rpm_mean"] + random.gauss(0, cfg["rpm_std"])
+            elif anomaly_type == "THERMAL_RUNAWAY":
+                vib = cfg["vibration_mean"] + random.gauss(0, cfg["vibration_std"])
+                temp = cfg["temp_max_normal"] + random.uniform(15.0, 45.0)
+                rpm = cfg["rpm_mean"] * 0.9
+            else:
+                vib = cfg["vibration_mean"] * 2.8
+                temp = cfg["temp_mean"] + random.uniform(8.0, 20.0)
+                rpm = cfg["rpm_mean"] * random.uniform(1.15, 1.35)
+        else:
+            vib = max(0.1, random.gauss(cfg["vibration_mean"], cfg["vibration_std"]))
+            temp = max(10.0, random.gauss(cfg["temp_mean"], cfg["temp_std"]))
+            rpm = max(100.0, random.gauss(cfg["rpm_mean"], cfg["rpm_std"]))
+
+        power = max(1.0, random.gauss(cfg["power_mean"], cfg["power_std"]))
+        psi = random.uniform(1800.0, 3200.0) if self.primary_machine in ["MICHELIN_CURING_PRESS", "DMG_MORI_5AXIS_CNC"] else None
+        acoustic = random.uniform(65.0, 115.0) if is_anomaly else random.uniform(55.0, 80.0)
+
+        self.total_frames_generated += 1
+        return {
+            "telemetry_id": str(uuid.uuid4()),
+            "device_id": device_id,
+            "machine_type": self.primary_machine,
+            "facility_location": self.plant_location,
+            "facility_id": self.facility_id,
+            "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+            "vibration_rms_g": round(vib, 3),
+            "bearing_temp_celsius": round(temp, 2),
+            "rotational_speed_rpm": round(rpm, 1),
+            "power_draw_kw": round(power, 2),
+            "hydraulic_pressure_psi": round(psi, 1) if psi is not None else None,
+            "acoustic_emission_db": round(acoustic, 1),
+            "firmware_version": self.firmware_version,
+            "network_latency_ms": round(random.uniform(8.0, 25.0), 1),
+            "is_simulated_anomaly": is_anomaly
+        }
+
+    def generate_batch(self) -> list:
+        return [self.generate_sensor_frame() for _ in range(self.batch_size)]
+
+    def spool_batch(self, batch: list):
+        batch_id = f"batch_{int(time.time())}_{uuid.uuid4().hex[:6]}"
+        target_file = self.spool_dir / f"{batch_id}.json"
+        temp_file = self.spool_dir / f".{batch_id}.tmp"
+
+        with open(temp_file, "w", encoding="utf-8") as f:
+            json.dump(batch, f, indent=2)
+        temp_file.replace(target_file)
+        self.total_batches_spooled += 1
+        logging.debug(f"Spooled batch {batch_id} with {len(batch)} records to {target_file}")
+
+    def update_health(self):
+        try:
+            spool_files = list(self.spool_dir.glob("batch_*.json"))
+            buffer_files = list(self.buffer_dir.glob("*.json"))
+            health_payload = {
+                "status": "HEALTHY",
+                "daemon": "edge-telemetry-collector",
+                "uptime_seconds": int((datetime.now(timezone.utc) - self.start_time).total_seconds()),
+                "facility_id": self.facility_id,
+                "plant_location": self.plant_location,
+                "primary_machine": self.primary_machine,
+                "total_frames_generated": self.total_frames_generated,
+                "total_batches_spooled": self.total_batches_spooled,
+                "total_anomalies_detected": self.total_anomalies_detected,
+                "spool_queue_depth": len(spool_files),
+                "buffer_queue_depth": len(buffer_files),
+                "last_heartbeat_utc": datetime.now(timezone.utc).isoformat()
+            }
+            tmp_health = self.health_file.with_suffix(".tmp")
+            with open(tmp_health, "w", encoding="utf-8") as f:
+                json.dump(health_payload, f, indent=2)
+            tmp_health.replace(self.health_file)
+        except Exception as e:
+            logging.warning(f"Unable to update health status: {e}")
+
+    def run_daemon(self):
+        logging.info(f"Starting Edge Telemetry Collector on {self.facility_id} ({self.plant_location})...")
+        logging.info(f"Targeting machine class: {self.primary_machine} with interval {self.interval}s")
+        while running:
+            try:
+                batch = self.generate_batch()
+                self.spool_batch(batch)
+                self.update_health()
+            except Exception as e:
+                logging.error(f"Error during collection cycle: {e}")
+            time.sleep(self.interval)
+        logging.info("Edge collector stopped gracefully.")
+
+    def run_once(self) -> dict:
+        batch = self.generate_batch()
+        self.spool_batch(batch)
+        self.update_health()
+        return {
+            "status": "SUCCESS",
+            "frames_generated": len(batch),
+            "spool_dir": str(self.spool_dir),
+            "sample_record": batch[0]
+        }
+
+
+def check_health(config_path: str):
+    daemon = EdgeCollectorDaemon(config_path)
+    health_file = daemon.health_file
+    if not health_file.exists():
+        print(json.dumps({"status": "WARNING", "message": "Health file not found - service may be initializing"}))
+        sys.exit(0)
+    try:
+        with open(health_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        print(json.dumps(data, indent=2))
+        sys.exit(0)
+    except Exception as e:
+        print(json.dumps({"status": "ERROR", "message": str(e)}))
+        sys.exit(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Edge Telemetry Collector Daemon")
+    parser.add_argument("--config", "-c", default="/etc/edge-lakehouse/collector.conf", help="Path to collector.conf")
+    parser.add_argument("--once", action="store_true", help="Run a single collection batch and exit (smoke test)")
+    parser.add_argument("--health", action="store_true", help="Check collector daemon health and exit")
+    args = parser.parse_args()
+
+    signal.signal(signal.SIGTERM, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)
+
+    if args.health:
+        check_health(args.config)
+        return
+
+    collector = EdgeCollectorDaemon(args.config)
+
+    if args.once:
+        result = collector.run_once()
+        print(json.dumps(result, indent=2))
+        sys.exit(0)
+
+    collector.run_daemon()
+
+
+if __name__ == "__main__":
+    main()

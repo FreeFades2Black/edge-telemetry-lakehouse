@@ -1,0 +1,38 @@
+---
+# Global group variables for Multi-Cloud Edge Telemetry & Analytical Lakehouse
+lakehouse_version: "2.4.1"
+lakehouse_env: "production"
+
+# Edge Filesystem Architecture
+edge_install_dir: "/opt/edge-lakehouse"
+edge_config_dir: "/etc/edge-lakehouse"
+edge_log_dir: "/var/log/edge-lakehouse"
+edge_buffer_dir: "/var/lib/edge-lakehouse/buffer"
+edge_spool_dir: "/var/lib/edge-lakehouse/spool"
+
+# Service Account Identity
+edge_user: "edge-iot"
+edge_group: "industrial"
+edge_user_uid: 1845
+edge_group_gid: 1845
+
+# Python Runtime Environment
+edge_venv_dir: "/opt/edge-lakehouse/venv"
+edge_python_bin: "/usr/bin/python3"
+
+# Ingestion Pipeline & Cloud Forwarder Target
+lakehouse_ingest_endpoint: "https://telemetry.lakehouse.internal/v1/bronze/ingest"
+lakehouse_ingest_mode: "hybrid" # options: direct_kinesis, http_endpoint, local_spool, hybrid
+lakehouse_offline_buffer_enabled: true
+lakehouse_max_buffer_mb: 1024
+
+# Collector Cadence & Anomaly Sampling
+collector_interval_sec: 1.0
+collector_batch_size: 10
+collector_simulated_anomaly_rate: 0.06
+collector_log_level: "INFO"
+
+# Industrial Network & Kernel Optimization
+edge_kernel_tcp_tune: true
+edge_rmem_max: 16777216
+edge_wmem_max: 16777216

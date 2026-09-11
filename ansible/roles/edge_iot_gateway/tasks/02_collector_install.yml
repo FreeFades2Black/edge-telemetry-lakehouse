@@ -1,0 +1,19 @@
+---
+# Collector installation: python binary and executable script
+
+- name: Deploy edge telemetry collector script
+  ansible.builtin.template:
+    src: edge_collector.py.j2
+    dest: "{{ edge_install_dir }}/bin/edge_collector.py"
+    owner: "{{ edge_user }}"
+    group: "{{ edge_group }}"
+    mode: "0755"
+  notify: "restart edge collector"
+
+- name: Create symlink in /usr/local/bin for easy CLI access
+  ansible.builtin.file:
+    src: "{{ edge_install_dir }}/bin/edge_collector.py"
+    dest: "/usr/local/bin/edge-lakehouse-collector"
+    state: link
+    force: true
+  ignore_errors: true

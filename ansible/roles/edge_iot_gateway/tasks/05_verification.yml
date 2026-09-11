@@ -1,0 +1,37 @@
+---
+# Verification & smoke test: execute one-shot collector batch and query health
+
+- name: Execute one-shot edge collector smoke test
+  ansible.builtin.command:
+    cmd: "{{ edge_python_bin }} {{ edge_install_dir }}/bin/edge_collector.py --config {{ edge_config_dir }}/collector.conf --once"
+  become: true
+  become_user: "{{ edge_user }}"
+  register: collector_smoke_test
+  changed_when: false
+  when: not ansible_check_mode
+
+- name: Assert smoke test generated telemetry successfully
+  ansible.builtin.assert:
+    that:
+      - collector_smoke_test.rc == 0
+      - "'SUCCESS' in collector_smoke_test.stdout"
+    fail_msg: "Edge collector smoke test failed! Output: {{ collector_smoke_test.stdout }}"
+    success_msg: "Edge collector smoke test passed successfully."
+  when: not ansible_check_mode
+
+- name: Check health status of the collector daemon
+  ansible.builtin.command:
+    cmd: "{{ edge_python_bin }} {{ edge_install_dir }}/bin/edge_collector.py --config {{ edge_config_dir }}/collector.conf --health"
+  become: true
+  become_user: "{{ edge_user }}"
+  register: collector_health_check
+  changed_when: false
+  when: not ansible_check_mode
+
+- name: Display edge collector health summary
+  ansible.builtin.debug:
+    msg:
+      - "Facility: {{ facility_id }}"
+      - "Location: {{ plant_location }}"
+      - "Machine Class: {{ primary_machine }}"
+      - "Daemon Health: {{ collector_health_check.stdout | default('Skipped in check mode') }}"

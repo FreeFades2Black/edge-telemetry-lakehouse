@@ -1,0 +1,29 @@
+[Unit]
+Description=Edge Telemetry Collector & Gateway Daemon (Lakehouse v{{ lakehouse_version }})
+Documentation=https://github.com/FreeFades2Black/edge-telemetry-lakehouse
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ edge_user }}
+Group={{ edge_group }}
+WorkingDirectory={{ edge_install_dir }}
+ExecStart={{ edge_python_bin }} {{ edge_install_dir }}/bin/edge_collector.py --config {{ edge_config_dir }}/collector.conf
+Restart=always
+RestartSec={{ edge_service_restart_sec }}
+
+# Security Hardening Directives
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+MemoryMax={{ edge_service_memory_max }}
+CPUQuota={{ edge_service_cpu_quota }}
+
+# Standard Streams & Logging
+StandardOutput=append:{{ edge_log_dir }}/collector.log
+StandardError=append:{{ edge_log_dir }}/collector-error.log
+
+[Install]
+WantedBy=multi-user.target

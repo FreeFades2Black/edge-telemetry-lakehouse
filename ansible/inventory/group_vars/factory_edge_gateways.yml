@@ -1,0 +1,13 @@
+---
+# Group variables specific to production factory edge gateways
+edge_service_restart_on_failure: true
+edge_service_restart_sec: 5
+edge_service_memory_max: "512M"
+edge_service_cpu_quota: "50%"
+
+# Logrotate Settings
+edge_log_rotate_count: 7
+edge_log_rotate_size: "50M"
+
+# Health Check Timer Cadence
+edge_healthcheck_interval: "5min"

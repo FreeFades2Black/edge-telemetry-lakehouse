@@ -1,4 +1,6 @@
-.PHONY: init lint test plan localstack run-local clean
+export ANSIBLE_CONFIG ?= ansible.cfg
+
+.PHONY: init lint test plan localstack run-local clean ansible-check ansible-lint ansible-verify
 
 init:
 	python -m pip install --upgrade pip
@@ -31,3 +33,15 @@ run-historical:
 
 clean:
 	rm -rf .pytest_cache data/bronze/*.json data/silver/*.json data/gold/*.json
+
+ansible-check:
+	ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/provision-edge-gateways.yml --syntax-check
+	ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/verify-edge-health.yml --syntax-check
+	ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/site.yml --syntax-check
+
+ansible-lint:
+	ansible-lint ansible/playbooks/*.yml
+
+ansible-verify:
+	ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/verify-edge-health.yml
+

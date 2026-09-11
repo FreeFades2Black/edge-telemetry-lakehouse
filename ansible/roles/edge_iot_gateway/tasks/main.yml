@@ -1,0 +1,33 @@
+---
+# tasks file for roles/edge_iot_gateway
+
+- name: Execute prerequisites and directory baseline
+  ansible.builtin.import_tasks: 01_prerequisites.yml
+  tags:
+    - prerequisites
+    - directories
+    - users
+
+- name: Install edge collector daemon and runtime
+  ansible.builtin.import_tasks: 02_collector_install.yml
+  tags:
+    - install
+    - runtime
+
+- name: Deploy configuration and logrotate policy
+  ansible.builtin.import_tasks: 03_configuration.yml
+  tags:
+    - config
+    - logrotate
+
+- name: Configure and enable systemd units
+  ansible.builtin.import_tasks: 04_systemd_services.yml
+  tags:
+    - service
+    - systemd
+
+- name: Verify collector operational health
+  ansible.builtin.import_tasks: 05_verification.yml
+  tags:
+    - verify
+    - test

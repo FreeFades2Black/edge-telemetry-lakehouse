@@ -1,0 +1,49 @@
+---
+# Prerequisites: user creation, directory hierarchy, kernel tuning
+
+- name: Ensure industrial service group exists
+  ansible.builtin.group:
+    name: "{{ edge_group }}"
+    state: present
+  when: edge_create_user | bool
+
+- name: Ensure edge service user exists
+  ansible.builtin.user:
+    name: "{{ edge_user }}"
+    group: "{{ edge_group }}"
+    shell: "{{ edge_user_shell }}"
+    system: true
+    create_home: false
+    comment: "Edge IoT Lakehouse Service Account"
+    state: present
+  when: edge_create_user | bool
+
+- name: Create required directory hierarchy
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ edge_user }}"
+    group: "{{ edge_group }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - { path: "{{ edge_install_dir }}", mode: "0755" }
+    - { path: "{{ edge_install_dir }}/bin", mode: "0755" }
+    - { path: "{{ edge_config_dir }}", mode: "0750" }
+    - { path: "{{ edge_log_dir }}", mode: "0750" }
+    - { path: "{{ edge_buffer_dir }}", mode: "0750" }
+    - { path: "{{ edge_spool_dir }}", mode: "0750" }
+
+- name: Tune Linux kernel network buffers for high-throughput IoT telemetry
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: true
+  loop:
+    - { name: "net.core.rmem_max", value: "{{ edge_rmem_max }}" }
+    - { name: "net.core.wmem_max", value: "{{ edge_wmem_max }}" }
+  when:
+    - edge_kernel_tcp_tune | bool
+    - ansible_facts['virtualization_type'] | default('') != 'docker'
+    - ansible_facts['virtualization_type'] | default('') != 'container'
+  ignore_errors: true

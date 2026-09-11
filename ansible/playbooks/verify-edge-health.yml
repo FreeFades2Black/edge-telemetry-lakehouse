@@ -1,0 +1,40 @@
+---
+# Playbook: Verify Factory Floor Edge Gateway Health & Spool Depths
+# Targets: All nodes in factory_edge_gateways
+
+- name: Audit Edge Gateway Health & Telemetry Buffers
+  hosts: factory_edge_gateways
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Query edge-telemetry-collector service status
+      ansible.builtin.systemd:
+        name: edge-telemetry-collector
+      register: collector_status
+
+    - name: Execute edge collector health inquiry
+      ansible.builtin.command:
+        cmd: /opt/edge-lakehouse/bin/edge_collector.py --config /etc/edge-lakehouse/collector.conf --health
+      register: collector_health_raw
+      changed_when: false
+      failed_when: collector_health_raw.rc != 0
+
+    - name: Parse health status JSON
+      ansible.builtin.set_fact:
+        health_data: "{{ collector_health_raw.stdout | from_json }}"
+
+    - name: Report Edge Node Operational Status
+      ansible.builtin.debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Service Active: {{ collector_status.status.ActiveState | default('unknown') }}"
+          - "Service SubState: {{ collector_status.status.SubState | default('unknown') }}"
+          - "Facility: {{ health_data.facility_id | default('N/A') }}"
+          - "Location: {{ health_data.plant_location | default('N/A') }}"
+          - "Primary Machine: {{ health_data.primary_machine | default('N/A') }}"
+          - "Frames Generated: {{ health_data.total_frames_generated | default(0) }}"
+          - "Batches Spooled: {{ health_data.total_batches_spooled | default(0) }}"
+          - "Spool Queue Depth: {{ health_data.spool_queue_depth | default(0) }}"
+          - "Anomalies Caught: {{ health_data.total_anomalies_detected | default(0) }}"
+          - "Last Heartbeat: {{ health_data.last_heartbeat_utc | default('N/A') }}"

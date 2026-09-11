@@ -1,0 +1,12 @@
+[Unit]
+Description=Edge Telemetry Health Check Sentinel (Lakehouse v{{ lakehouse_version }})
+Documentation=https://github.com/FreeFades2Black/edge-telemetry-lakehouse
+After=edge-telemetry-collector.service
+
+[Service]
+Type=oneshot
+User={{ edge_user }}
+Group={{ edge_group }}
+ExecStart={{ edge_python_bin }} {{ edge_install_dir }}/bin/edge_collector.py --config {{ edge_config_dir }}/collector.conf --health
+StandardOutput=append:{{ edge_log_dir }}/healthcheck.log
+StandardError=append:{{ edge_log_dir }}/healthcheck-error.log

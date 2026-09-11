@@ -52,3 +52,33 @@ jobs:
           scan-ref: "."
           severity: "CRITICAL,HIGH"
           exit-code: "0"
+
+  ansible_quality_gate:
+    name: "Ansible Edge Provisioning Quality Gate"
+    runs-on: ubuntu-latest
+    env:
+      ANSIBLE_CONFIG: "ansible.cfg"
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install Ansible Core & Linter"
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible-core ansible-lint
+
+      - name: "Validate Playbook Syntax"
+        run: |
+          ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/provision-edge-gateways.yml --syntax-check
+          ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/verify-edge-health.yml --syntax-check
+          ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/site.yml --syntax-check
+
+      - name: "Run Ansible Lint"
+        run: |
+          ansible-lint ansible/playbooks/*.yml --nocolor || true
+

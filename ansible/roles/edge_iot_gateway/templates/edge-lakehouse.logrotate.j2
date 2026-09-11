@@ -1,0 +1,14 @@
+{{ edge_log_dir }}/*.log {
+    daily
+    missingok
+    rotate {{ edge_log_rotate_count }}
+    compress
+    delaycompress
+    notifempty
+    create 0640 {{ edge_user }} {{ edge_group }}
+    size {{ edge_log_rotate_size }}
+    sharedscripts
+    postrotate
+        systemctl kill -s HUP edge-telemetry-collector.service 2>/dev/null || true
+    endscript
+}

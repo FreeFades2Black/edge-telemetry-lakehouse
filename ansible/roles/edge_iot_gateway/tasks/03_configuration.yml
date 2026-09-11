@@ -1,0 +1,21 @@
+---
+# Configuration deployment: collector config and logrotate policy
+
+- name: Deploy collector runtime configuration
+  ansible.builtin.template:
+    src: collector.conf.j2
+    dest: "{{ edge_config_dir }}/collector.conf"
+    owner: "{{ edge_user }}"
+    group: "{{ edge_group }}"
+    mode: "0640"
+  notify: "restart edge collector"
+
+- name: Deploy logrotate policy for edge telemetry logs
+  ansible.builtin.template:
+    src: edge-lakehouse.logrotate.j2
+    dest: /etc/logrotate.d/edge-lakehouse
+    owner: root
+    group: root
+    mode: "0644"
+  when: ansible_facts['os_family'] in ['Debian', 'RedHat', 'Archlinux']
+  ignore_errors: true

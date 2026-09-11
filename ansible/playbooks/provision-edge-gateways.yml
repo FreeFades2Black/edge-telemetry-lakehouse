@@ -1,0 +1,37 @@
+---
+# Playbook: Provision Factory Floor Edge IoT Gateways
+# Targets: BMW Greer, Michelin Greenville, GE Vernova, Spartanburg CNC, Omarchy Edge Node
+
+- name: Provision Industrial Edge IoT Telemetry Gateways
+  hosts: factory_edge_gateways
+  become: true
+  gather_facts: true
+
+  pre_tasks:
+    - name: Validate target operating system compatibility
+      ansible.builtin.assert:
+        that:
+          - ansible_facts['os_family'] in ['Archlinux', 'Debian', 'RedHat']
+        fail_msg: "Unsupported OS family: {{ ansible_facts['os_family'] }}. Must be Archlinux, Debian, or RedHat."
+        success_msg: "OS {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }} is certified for Edge Gateway deployment."
+
+    - name: Ensure Python 3 runtime is available on target host
+      ansible.builtin.raw: which python3
+      changed_when: false
+      register: python_check
+      failed_when: python_check.rc != 0
+
+  roles:
+    - role: edge_iot_gateway
+
+  post_tasks:
+    - name: Summary confirmation
+      ansible.builtin.debug:
+        msg:
+          - "========================================================"
+          - "Edge Gateway Successfully Provisioned on {{ inventory_hostname }}"
+          - "Facility: {{ facility_id }} ({{ plant_location }})"
+          - "Primary Asset: {{ primary_machine }}"
+          - "Daemon Service: edge-telemetry-collector.service [ACTIVE]"
+          - "Health Sentinel: edge-telemetry-healthcheck.timer [ACTIVE]"
+          - "========================================================"

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Edge Telemetry Health Check Sentinel Periodically
+Documentation=https://github.com/FreeFades2Black/edge-telemetry-lakehouse
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec={{ edge_healthcheck_interval }}
+Unit=edge-telemetry-healthcheck.service
+
+[Install]
+WantedBy=timers.target

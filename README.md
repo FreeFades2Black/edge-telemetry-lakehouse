@@ -6,6 +6,7 @@
 [![Quality Gate](https://img.shields.io/badge/Data_Quality-100%25_Clean-blue?style=for-the-badge)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
 [![Target Industry](https://img.shields.io/badge/Enterprise%20Focus-BMW%20%7C%20Michelin%20%7C%20GE%20Vernova-amber?style=for-the-badge&logo=industrial-software&logoColor=white)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse)
 [![TimesFM AI Forecast](https://img.shields.io/badge/AI%20Forecasting-Google%20TimesFM--3-purple?style=for-the-badge&logo=google&logoColor=white)](https://freefades2black.github.io/edge-telemetry-lakehouse/)
+[![Ansible Automation](https://img.shields.io/badge/Ansible-Edge%20Gateway%20Fleet-red?style=for-the-badge&logo=ansible&logoColor=white)](https://github.com/FreeFades2Black/edge-telemetry-lakehouse/tree/main/ansible)
 
 > [!TIP]
 > ### 🌐 **[👉 CLICK HERE TO LAUNCH LIVE FLEET TELEMETRY DASHBOARD ↗](https://freefades2black.github.io/edge-telemetry-lakehouse/)**
@@ -94,9 +95,9 @@ Sensors on factory machinery act like vital-sign monitors on an intensive-care p
 
 ---
 
-## 🏛️ The 3-Tier Medallion Architecture: From Factory Floor to Boardroom
+### 🏛️ The 3-Tier Medallion Architecture & Omarchy Edge AI Topology
 
-The platform uses Databricks / Delta Lake **Medallion Architecture** principles to turn noisy, chaotic factory signals into clear, actionable executive insights:
+The platform uses Databricks / Delta Lake **Medallion Architecture** principles coupled with on-premise **Edge AI Inference on the Omarchy Node**:
 
 ```mermaid
 flowchart TD
@@ -107,36 +108,67 @@ flowchart TD
         A4["5-Axis CNC Precision Mills (Spartanburg, SC)"]
     end
 
-    subgraph S2["2. Cloud Streaming & Micro-Batching"]
+    subgraph S_EDGE["2. Omarchy Edge Compute Node (Arch Linux 7.1.9)"]
+        EDGE_1["Edge Telemetry Normalizer & Gateway"]
+        EDGE_2["Google TimesFM-3 Zero-Shot Foundation Model<br/>(30-Day Autoregressive Degradation & RUL Engine)"]
+        EDGE_3["Real-Time Telemetry HUD Stream (/tmp/omarchy_live_stream.log)"]
+    end
+
+    subgraph S2["3. Cloud Streaming & Micro-Batching"]
         B1["AWS Kinesis / Kafka Sharded Ingress"]
         B2["Serverless Normalizer & Data Contract Validation"]
     end
 
-    subgraph S3["3. The 3-Tier Medallion Lakehouse"]
+    subgraph S3["4. The 3-Tier Medallion Lakehouse"]
         C1[("Bronze: Raw Sensor Vault<br/>Immutable Forensic Flight Recorder")]
         C2{"Automated Quality Gate<br/>(0-100% Quality Score)"}
         C3[("Quarantine Dead-Letter<br/>Isolates Corrupt Data")]
         C4[("Silver: Sanitized & Enriched<br/>ISO 10816 Anomaly Engine")]
-        C5[("Gold: Executive Decision Layer<br/>Fleet Machine Health & OEE")]
+        C5[("Gold: Executive Decision Layer<br/>TimesFM-3 RUL & Fleet Health Scorecard")]
     end
 
-    subgraph S4["4. Executive Governance & CI/CD Flywheel"]
-        D1["GitHub Actions Matrix Testing (Py3.10 / Py3.11)"]
-        D2["Nightly Synthetic Telemetry Cron Flywheel (02:00 UTC)"]
-        D3["Infracost Cloud Spend Delta Approval"]
-        D4["LocalStack 2-Minute Local Sandbox"]
+    subgraph S4["5. Presentation & Governance"]
+        D1["Interactive Web Visualizer (GitHub Pages)"]
+        D2["GitHub Actions Matrix (Py3.10 / Py3.11)"]
+        D3["Daily Ingestion & Retraining Flywheel (06:00 UTC)"]
+        D4["LocalStack 2-Minute Sandbox"]
     end
 
-    S1 --> B1
+    S1 --> EDGE_1
+    EDGE_1 --> EDGE_2
+    EDGE_2 --> EDGE_3
+    EDGE_1 --> B1
     B1 --> B2
     B2 --> C1
     C1 --> C2
     C2 -->|Under 70 Pct Quality| C3
-    C2 -->|Valid Over 70 Pct| C4
+    C2 -->|70 Pct Plus Clean| C4
     C4 --> C5
-    D1 -.-> C2
-    D2 -.-> C1
+    EDGE_2 -.->|Edge Forecast Payload| C5
+    C5 --> D1
 ```
+
+---
+
+## 🧠 How Google TimesFM-3 & The Omarchy Edge Asset are Incorporated
+
+### 1. The Foundation Model: Google TimesFM-3
+**TimesFM-3 (Time Series Foundation Model)** is Google Research's decoder-only transformer pretrained on 100B+ real-world time-series points. Unlike traditional ARIMA or LSTM models that require extensive per-machine training and frequent retraining on historical data, TimesFM-3 provides **zero-shot generalization across industrial physical domains**:
+
+* **Temporal Context Window:** Ingests 50 to 100 historical operational cycles from the Bronze Lakehouse layer.
+* **Autoregressive Multi-Horizon Projection:** Evaluates multi-frequency harmonics (e.g. 3,600 RPM turbine shaft harmonics vs. 15-minute thermal dissipation cycles).
+* **Probabilistic Quantile Forecasts:** Generates point estimates ($P_{50}$) alongside optimistic ($P_{10}$) and severe degradation ($P_{90}$) confidence intervals:
+  $$\hat{Y}_{T+h} = \text{TimesFM-3}(X_{1:T}, h, \text{covariates})$$
+* **Non-Linear Remaining Useful Life (RUL):** Dynamically calculates the exact operating hours remaining before vibration RMS crosses the ISO 10816-3 critical severity boundary ($6.5G$).
+
+### 2. The Omarchy Edge Node (`omarchy-node-01`) as an Industrial Compute Asset
+To eliminate cloud latency and guarantee deterministic execution during factory network interruptions, the pipeline leverages the **Omarchy Arch Linux Edge Node (`192.168.50.53` Kernel 7.1.9-arch1-2)**:
+
+* **On-Premise Foundation Inference:** Runs the TimesFM-3 inference engine locally on bare-metal Arch Linux, executing sub-second vibration drift predictions.
+* **Real-Time Telemetry HUD:** Streams live inference and ingestion status directly to `/tmp/omarchy_live_stream.log` and the interactive terminal HUD.
+* **Edge-to-Cloud Lakehouse Synchronization:** Packages validated telemetry frames and TimesFM-3 forecast dossiers into `data/gold/gold_timesfm_maintenance_forecast.json` before cloud synchronization.
+
+---
 
 ### Layer 1: 🥉 Bronze Layer — *The Raw Ingestion Vault*
 * **Business Purpose:** The immutable "black box flight recorder" of every telemetry event transmitted from the plant.
@@ -255,6 +287,44 @@ make localstack-up
 # Validate Terraform infrastructure against LocalStack
 make plan
 ```
+
+---
+
+## 🏭 Factory Floor Edge Gateway Automation (Ansible Provisioning)
+
+To bridge the physical shop floor to the cloud Lakehouse, the repository includes production-ready **Ansible Automation** located under [`ansible/`](file:///C:/Users/FreeF/projects/edge-telemetry-lakehouse/ansible) for provisioning and operating industrial edge gateways:
+
+```
+                                  ANSIBLE EDGE FLEET TOPOLOGY
+┌─────────────────────────┐  ┌─────────────────────────┐  ┌─────────────────────────┐
+│ bmw-greer-gw01          │  │ mich-gvl-gw01           │  │ gev-gvl-gw01            │
+│ (BMW Greer AMR Robots)  │  │ (Michelin Presses)      │  │ (GE Vernova HA Turbine) │
+└────────────┬────────────┘  └────────────┬────────────┘  └────────────┬────────────┘
+             │                            │                            │
+             └──────────────────────┬─────┴────────────────────────────┘
+                                    ▼
+                 ┌──────────────────────────────────────┐
+                 │ roles/edge_iot_gateway               │
+                 │  - Systemd collector daemon          │
+                 │  - Offline store-and-forward spool   │
+                 │  - Periodic health sentinel timer    │
+                 │  - High-throughput TCP buffer tuning │
+                 └──────────────────────────────────────┘
+```
+
+### Quick Commands:
+```bash
+# Validate playbook syntax
+make ansible-check
+
+# Provision entire edge fleet
+ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/provision-edge-gateways.yml
+
+# Check health and queue depths across all edge nodes
+ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/verify-edge-health.yml
+```
+
+For full inventory configuration, systemd security directives, and store-and-forward buffer policies, consult the **[Ansible Operational Manual](file:///C:/Users/FreeF/projects/edge-telemetry-lakehouse/ansible/README.md)**.
 
 ---
 

@@ -1,0 +1,52 @@
+---
+# Systemd service and timer deployment
+
+- name: Deploy edge telemetry collector systemd unit
+  ansible.builtin.template:
+    src: edge-telemetry-collector.service.j2
+    dest: /etc/systemd/system/edge-telemetry-collector.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - reload systemd
+    - restart edge collector
+
+- name: Deploy healthcheck systemd service unit
+  ansible.builtin.template:
+    src: edge-telemetry-healthcheck.service.j2
+    dest: /etc/systemd/system/edge-telemetry-healthcheck.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: reload systemd
+
+- name: Deploy healthcheck systemd timer unit
+  ansible.builtin.template:
+    src: edge-telemetry-healthcheck.timer.j2
+    dest: /etc/systemd/system/edge-telemetry-healthcheck.timer
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - reload systemd
+    - restart edge healthcheck timer
+
+- name: Flush handlers to ensure units are recognized by systemd
+  ansible.builtin.meta: flush_handlers
+
+- name: Manage edge collector service state
+  ansible.builtin.systemd:
+    name: edge-telemetry-collector
+    state: "{{ edge_service_state }}"
+    enabled: "{{ edge_service_enabled | bool }}"
+  when: not ansible_check_mode
+
+- name: Manage edge healthcheck timer state
+  ansible.builtin.systemd:
+    name: edge-telemetry-healthcheck.timer
+    state: started
+    enabled: "{{ edge_healthcheck_enabled | bool }}"
+  when:
+    - edge_healthcheck_enabled | bool
+    - not ansible_check_mode

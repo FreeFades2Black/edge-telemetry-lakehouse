@@ -1,0 +1,26 @@
+---
+# handlers file for roles/edge_iot_gateway
+
+- name: Systemd daemon reload
+  ansible.builtin.systemd:
+    daemon_reload: true
+  listen: "reload systemd"
+  when: not ansible_check_mode
+
+- name: Restart edge collector daemon
+  ansible.builtin.systemd:
+    name: edge-telemetry-collector
+    state: restarted
+  listen: "restart edge collector"
+  when:
+    - edge_service_enabled | bool
+    - not ansible_check_mode
+
+- name: Restart edge healthcheck timer
+  ansible.builtin.systemd:
+    name: edge-telemetry-healthcheck.timer
+    state: restarted
+  listen: "restart edge healthcheck timer"
+  when:
+    - edge_healthcheck_enabled | bool
+    - not ansible_check_mode

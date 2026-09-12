@@ -1,0 +1,70 @@
+{
+  "title": "Industrial Edge Telemetry & Machine Health",
+  "schemaVersion": 38,
+  "panels": [
+    {
+      "title": "Sensor Telemetry Ingestion Rate (msgs/sec)",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "rate(edge_telemetry_messages_received_total[5m])",
+          "legendFormat": "Inbound msgs/s"
+        }
+      ]
+    },
+    {
+      "title": "Active Industrial Edge Gateways",
+      "type": "stat",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "count(edge_gateway_heartbeat_timestamp > (time() - 60))",
+          "legendFormat": "Online Gateways"
+        }
+      ]
+    },
+    {
+      "title": "TimesFM RUL Anomaly Detections",
+      "type": "stat",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "sum(timesfm_predicted_anomalies_total)",
+          "legendFormat": "Critical Wear Alerts"
+        }
+      ]
+    },
+    {
+      "title": "MQTT Message Drop / Quarantine Rate",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "rate(edge_telemetry_quarantined_records_total[5m])",
+          "legendFormat": "Quarantined / s"
+        }
+      ]
+    }
+  ]
+}

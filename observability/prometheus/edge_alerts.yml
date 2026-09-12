@@ -1,0 +1,22 @@
+groups:
+  - name: edge_telemetry_alerts
+    rules:
+      - alert: EdgeGatewayHeartbeatMissing
+        expr: time() - edge_gateway_last_heartbeat_seconds > 120
+        for: 2m
+        labels:
+          severity: critical
+          tier: iot-edge
+        annotations:
+          summary: "Edge Gateway {{ $labels.gateway_id }} offline"
+          description: "Gateway has not emitted telemetry or heartbeat in >120 seconds."
+
+      - alert: VibrationAnomalyPredicted
+        expr: timesfm_vibration_rms_predicted_max > 4.5
+        for: 5m
+        labels:
+          severity: warning
+          tier: predictive-maintenance
+        annotations:
+          summary: "Bearing wear threshold breach predicted for {{ $labels.machine_id }}"
+          description: "TimesFM 72-hour forecast projects RMS vibration > 4.5 mm/s."

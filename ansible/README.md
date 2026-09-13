@@ -36,8 +36,8 @@ flowchart TD
         D3["edge-telemetry-healthcheck.timer<br/>(Automated Sentinel Health Audit)"]
     end
 
-    S_INV --> S_ROLE
-    S_ROLE --> S_OS
+    I1 & I2 & I3 & I4 --> R1
+    R5 --> D1 & D2 & D3
 ```
 
 ---

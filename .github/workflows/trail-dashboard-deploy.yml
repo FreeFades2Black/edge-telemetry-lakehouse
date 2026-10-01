@@ -21,12 +21,13 @@ jobs:
   run_pipeline_and_publish:
     name: "Execute Replay and Publish Dashboard"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: "Draw Iron (Checkout Code)"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: "Prime the Cylinder (Setup Python)"
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: "pip"
@@ -44,10 +45,10 @@ jobs:
           python src/visualization/build_dashboard.py --output-dir dist/
 
       - name: "Upload GitHub Pages Artifact"
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: "dist/"
 
       - name: "Deploy to GitHub Pages"
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

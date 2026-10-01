@@ -10,16 +10,17 @@ jobs:
   lint_and_test_matrix:
     name: "Python Matrix & Quality Gate"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       matrix:
         python-version: ["3.10", "3.11"]
 
     steps:
       - name: "Checkout Repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: "Setup Python ${{ matrix.python-version }}"
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -41,12 +42,13 @@ jobs:
   security_and_iac_scan:
     name: "Trivy Security & Vulnerability Gate"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: "Checkout Repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: "Trivy File System & IaC Scan"
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0
         with:
           scan-type: "fs"
           scan-ref: "."
@@ -56,14 +58,15 @@ jobs:
   ansible_quality_gate:
     name: "Ansible Edge Provisioning Quality Gate"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       ANSIBLE_CONFIG: "ansible.cfg"
     steps:
       - name: "Checkout Repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: "Setup Python 3.11"
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 

@@ -17,7 +17,9 @@ flowchart TD
     end
 
     subgraph MedallionCore ["2. Delta Lake Cloud Medallion Spine"]
-        Agent --> Bronze["Bronze Delta Table<br/>(Raw Immutable Telemetry Stream)"]
+        Agent --> Gate["OCaml Ingress Gatekeeper<br/>(Deduplication & Quarantine Filter)"]
+        Gate -->|Valid Frames| Bronze["Bronze Delta Table<br/>(Raw Immutable Telemetry Stream)"]
+        Gate -->|Corrupted Frames| Quarantine["Quarantine Dead-Letter Store<br/>(dead_letter_events.jsonl)"]
         Bronze --> Silver["Silver Delta Table<br/>(Deduplicated, Schema-Enforced Mart)"]
         Silver --> Gold["Gold Delta Table<br/>(Rolling Health Aggregates & RUL)"]
     end
@@ -30,12 +32,32 @@ flowchart TD
 
 ---
 
+## 🛡️ Pre-Bronze Ingress Gatekeeper (`ocaml-event-engine`)
+
+To guarantee data integrity across the Medallion architecture and prevent corrupted edge records from triggering costly ACID rollbacks or invalid downstream micro-batches, all streaming IoT batches pass through [`src/ingestion/gatekeeper_client.py`](src/ingestion/gatekeeper_client.py) powered by [`ocaml-event-engine`](https://github.com/FreeFades2Black/ocaml-event-engine) (`ghcr.io/freefades2black/ocaml-event-engine:latest`):
+
+```mermaid
+flowchart LR
+    EdgeStream["Incoming Machine Telemetry Batches"] --> Gate["OCaml Ingress Gatekeeper<br/>(Static Musl Container / Fallback)"]
+    Gate -->|status: duplicate| Drop["Discard Immediately<br/>(0 Duplicate Records in Bronze)"]
+    Gate -->|status: invalid| Q["Quarantine Path<br/>(data/quarantine/dead_letter_events.jsonl)"]
+    Gate -->|status: processed| Bronze["Bronze Delta Landing Zone<br/>(Verified Clean ACID Partitions)"]
+    Bronze --> Spark["Downstream PySpark & Delta Pipelines"]
+```
+
+### Why This Ingress Gate Matters
+1. **Zero-Defect Delta Ingestion:** In high-frequency factory telemetry (thousands of msgs/sec), network retries and edge reconnects cause duplicate sensor frames. The gatekeeper drops duplicates before disk writes, guaranteeing that zero duplicate frames enter the Bronze delta landing zone.
+2. **Immediate Quarantine Isolation:** Malformed payloads (missing device IDs, empty bodies) are isolated into `dead_letter_events.jsonl` rather than contaminating Spark schemas.
+3. **Specification-Enforced Invariants:** Validated per [GATEKEEPER_INTEGRATION.md](GATEKEEPER_INTEGRATION.md).
+
+---
+
 ## 1-Command Local Verification
 
 Prerequisites: `python >= 3.11`.
 
 ```bash
-# Run pipeline test harness and TimesFM forecasting verification
+# Run pipeline test harness, gatekeeper tests, and TimesFM forecasting verification
 python -m pytest tests/ -v
 ```
 
@@ -45,12 +67,16 @@ python -m pytest tests/ -v
 ============================= test session starts =============================
 platform win32 -- Python 3.11.0, pytest-9.1.1, pluggy-1.6.0
 rootdir: C:\Users\FreeF\projects\edge-telemetry-lakehouse
-collected 9 items
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.14.2
+collected 11 items
 
-tests/test_telemetry_pipeline.py ......                                   [ 66%]
-tests/test_timesfm_maintenance_forecast.py ...                           [100%]
+tests/test_gatekeeper_bronze_ingress.py ..                               [ 18%]
+tests/test_telemetry_pipeline.py ........                                [ 90%]
+tests/test_timesfm_maintenance_forecast.py .                             [100%]
 
-============================== 9 passed in 4.36s ==============================
+============================= 11 passed in 1.45s ==============================
 ```
 
 ---

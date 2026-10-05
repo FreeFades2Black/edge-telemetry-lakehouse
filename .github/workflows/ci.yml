@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: "Checkout Repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: "Setup Python ${{ matrix.python-version }}"
         uses: actions/setup-python@v5
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout Repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: "Trivy File System & IaC Scan"
         uses: aquasecurity/trivy-action@master
@@ -60,7 +60,7 @@ jobs:
       ANSIBLE_CONFIG: "ansible.cfg"
     steps:
       - name: "Checkout Repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: "Setup Python 3.11"
         uses: actions/setup-python@v5

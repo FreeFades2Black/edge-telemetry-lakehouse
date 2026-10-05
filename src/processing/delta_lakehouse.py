@@ -7,9 +7,10 @@ Simulates Delta Lake parquet partition operations and computes Gold Machine Heal
 import json
 from pathlib import Path
 from datetime import datetime, timezone
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 from src.ingestion.stream_producer import EdgeTelemetryProducer
 from src.ingestion.revolver_replay import HistoricalTelemetryReplay
+from src.ingestion.gatekeeper_client import GatekeeperClient
 from src.quality.quality_gate import TelemetryQualityGate
 from src.anomaly.statistical_detector import IndustrialAnomalyDetector
 
@@ -26,10 +27,11 @@ for d in [BRONZE_DIR, SILVER_DIR, GOLD_DIR, QUARANTINE_DIR]:
 class EdgeTelemetryLakehousePipeline:
     """Executes the full Medallion Lakehouse pipeline for Industrial Edge Telemetry."""
 
-    def __init__(self):
+    def __init__(self, gatekeeper: Optional[GatekeeperClient] = None):
         self.producer = EdgeTelemetryProducer()
         self.quality_gate = TelemetryQualityGate()
         self.anomaly_detector = IndustrialAnomalyDetector()
+        self.gatekeeper = gatekeeper or GatekeeperClient()
 
     def run_historical_benchmark_replay(self, dataset_key: str = "nasa_cmapss", limit: int = 200) -> Dict[str, Any]:
         """Replays verified historical benchmark logs (NASA C-MAPSS, CWRU Bearing, or AI4I 2020) directly into Bronze."""
@@ -54,23 +56,28 @@ class EdgeTelemetryLakehousePipeline:
         }
 
     def run_bronze_ingestion(self, record_count: int = 500) -> Dict[str, Any]:
-        """Ingests raw streaming edge batches into Bronze Lakehouse partition."""
+        """Ingests raw streaming edge batches into Bronze Lakehouse partition through OCaml Gatekeeper."""
         raw_payloads = self.producer.generate_batch(record_count)
         raw_dicts = [p.model_dump(mode="json") for p in raw_payloads]
+
+        # Ingress Preprocessing Gate: Deduplicate & Quarantine Malformed Payloads
+        quarantine_file = QUARANTINE_DIR / "dead_letter_events.jsonl"
+        validated_dicts = self.gatekeeper.filter_batch(raw_dicts, quarantine_file=quarantine_file)
 
         timestamp_str = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         bronze_file = BRONZE_DIR / f"bronze_telemetry_{timestamp_str}.json"
         bronze_latest = BRONZE_DIR / "bronze_telemetry_latest.json"
 
         with open(bronze_file, "w", encoding="utf-8") as f:
-            json.dump(raw_dicts, f, indent=2)
+            json.dump(validated_dicts, f, indent=2)
         with open(bronze_latest, "w", encoding="utf-8") as f:
-            json.dump(raw_dicts, f, indent=2)
+            json.dump(validated_dicts, f, indent=2)
 
         return {
             "tier": "BRONZE",
             "status": "SUCCESS",
-            "records_ingested": len(raw_dicts),
+            "records_ingested": len(validated_dicts),
+            "records_received": len(raw_dicts),
             "output_file": str(bronze_file)
         }
 
